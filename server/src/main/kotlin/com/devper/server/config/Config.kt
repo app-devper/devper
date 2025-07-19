@@ -9,7 +9,7 @@ fun loadConfig(): Config {
     return Config(
         secretKey = System.getenv("SECRET_KEY") ?: "",
         mongoConfig = MongoConfig(
-            connectionString = "mongodb+srv://common:f9mWPxwVEGGkYnca@common-syu9e.mongodb.net"
+            connectionString =  System.getenv("MONGO_HOST")
         )
     )
 }
