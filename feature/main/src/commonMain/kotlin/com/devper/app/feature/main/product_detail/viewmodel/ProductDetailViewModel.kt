@@ -6,7 +6,6 @@ import com.devper.app.core.domain.constants.CUSTOM_TAG
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devper.app.core.common.Result
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
@@ -46,15 +45,15 @@ class ProductDetailViewModel(
 
     private fun getProduct(id: String) {
         viewModelScope.launch {
-            when (val result = getProductByIdUseCase(id)) {
-                is Result.Success -> {
-                    state.value = state.value.copy(product = result.data)
+            val result = getProductByIdUseCase(id)
+            result.fold(
+                onSuccess = { product ->
+                    state.value = state.value.copy(product = product)
+                },
+                onFailure = { error ->
+                    // Handle error if needed
                 }
-
-                is Result.Error -> {
-
-                }
-            }
+            )
         }
     }
 

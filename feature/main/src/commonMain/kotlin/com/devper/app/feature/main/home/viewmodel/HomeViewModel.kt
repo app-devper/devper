@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devper.app.core.domain.constants.CUSTOM_TAG
-import com.devper.app.core.common.Result
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
@@ -20,15 +19,13 @@ class HomeViewModel(
 
     fun getProduct() {
         viewModelScope.launch {
-            when (getProductsUseCase(Unit)) {
-                is Result.Success -> {
-
+            val result = getProductsUseCase(Unit)
+            result.fold(
+                onSuccess = { products ->
+                },
+                onFailure = { error ->
                 }
-
-                is Result.Error -> {
-
-                }
-            }
+            )
         }
     }
 

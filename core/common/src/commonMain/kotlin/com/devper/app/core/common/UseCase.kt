@@ -2,17 +2,18 @@ package com.devper.app.core.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import kotlin.Result
 
 abstract class UseCase<in P, R>(private val dispatcher: CoroutineDispatcher) {
 
-    suspend operator fun invoke(param: P): R {
-        return try {
-            withContext(dispatcher) {
-                execute(param)
+    suspend operator fun invoke(param: P): Result<R> {
+        return withContext(dispatcher) {
+            try {
+                Result.success(execute(param))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Result.failure(e)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
         }
     }
 

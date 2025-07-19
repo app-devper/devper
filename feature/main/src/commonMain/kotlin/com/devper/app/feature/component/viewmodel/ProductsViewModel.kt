@@ -2,7 +2,6 @@ package com.devper.app.feature.component.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devper.app.core.common.Result
 import com.devper.app.core.domain.model.product.Product
 import com.devper.app.core.domain.usecases.GetProductsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,15 +24,15 @@ class ProductsViewModel(
 
     fun getProducts(text: String, sortBalance: Boolean) {
         viewModelScope.launch {
-            when (val result = getProductsUseCase(Unit)) {
-                is Result.Success -> {
-                    onListProducts(text, result.data, sortBalance)
+            val result = getProductsUseCase(Unit)
+            result.fold(
+                onSuccess = { data ->
+                    onListProducts(text, data, sortBalance)
+                },
+                onFailure = { error ->
+                    // Handle error if needed
                 }
-
-                is Result.Error -> {
-
-                }
-            }
+            )
         }
     }
 

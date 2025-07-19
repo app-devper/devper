@@ -6,7 +6,6 @@ import com.devper.app.core.domain.constants.CUSTOM_TAG
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devper.app.core.common.Result
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.state.Queue
@@ -51,17 +50,22 @@ class SettingsViewModel(
         viewModelScope.launch {
             state.value = state.value.copy(progressBarState = ProgressBarState.ScreenLoading)
 
-            when (logoutUseCase(Unit)) {
-                is Result.Success -> {
+            val result = logoutUseCase(Unit)
+            result.fold(
+                onSuccess = {
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
                     state.value = state.value.copy(logout = true)
-                }
-
-                is Result.Error -> {
+                },
+                onFailure = { error ->
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
-                    state.value = state.value.copy(logout = true)
+                    appendToMessageQueue(
+                        UIComponent.Dialog(
+                            title = "Logout Failed",
+                            description = error.message ?: "An error occurred while logging out."
+                        )
+                    )
                 }
-            }
+            )
         }
     }
 

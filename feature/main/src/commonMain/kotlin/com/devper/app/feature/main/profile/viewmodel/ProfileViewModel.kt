@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import com.devper.app.core.domain.constants.CUSTOM_TAG
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devper.app.core.common.Result
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.state.Queue
@@ -47,22 +46,21 @@ class ProfileViewModel(
     private fun getProfile() {
         viewModelScope.launch {
             state.value = state.value.copy(progressBarState = ProgressBarState.ScreenLoading)
-
-            when (val result = getUserInfoUseCase(Unit)) {
-                is Result.Success -> {
+            val result = getUserInfoUseCase(Unit)
+            result.fold(
+                onSuccess = { userInfo ->
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
                     state.value = state.value.copy(
                         profile = ProfileView(
-                            name = result.data.firstName,
+                            name = userInfo.firstName,
                             profileUrl = "https://www.w3schools.com/w3images/avatar2.png"
                         )
                     )
-                }
-
-                is Result.Error -> {
+                },
+                onFailure = { error ->
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
                 }
-            }
+            )
         }
     }
 
@@ -96,6 +94,5 @@ class ProfileViewModel(
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
 
 }
