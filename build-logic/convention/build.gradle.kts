@@ -19,8 +19,8 @@ fun Provider<PluginDependency>.toDep() = map {
 
 tasks {
     validatePlugins {
-//        enableStricterValidation = true
-//        failOnWarning = true
+        enableStricterValidation = true
+        failOnWarning = true
     }
 }
 

@@ -90,7 +90,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.navigation.compose)
+            implementation(libs.androidx.navigation.compose)
 
             api(libs.koin.core)
             implementation(libs.koin.compose)

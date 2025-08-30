@@ -12,7 +12,7 @@ import com.devper.app.feature.main.address.AddressScreen
 import presentation.ui.main.address.view_model.AddressViewModel
 import com.devper.app.feature.main.edit_profile.EditProfileScreen
 import com.devper.app.feature.main.edit_profile.viewmodel.EditProfileViewModel
-import presentation.ui.main.my_coupons.MyCouponsScreen
+import com.devper.app.feature.main.my_coupons.MyCouponsScreen
 import presentation.ui.main.my_coupons.view_model.MyCouponsViewModel
 import presentation.ui.main.my_orders.MyOrdersScreen
 import presentation.ui.main.my_orders.view_model.MyOrdersViewModel

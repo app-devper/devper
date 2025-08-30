@@ -1,4 +1,4 @@
-package presentation.ui.main.my_coupons
+package com.devper.app.feature.main.my_coupons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,12 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ClipboardManager
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import business.domain.main.Coupons
-
 import com.devper.app.core.design.component.DefaultScreenUI
 import com.devper.app.core.design.component.Spacer_32dp
 import com.devper.app.core.design.component.Spacer_8dp
@@ -36,13 +32,11 @@ import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.offer
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-
 import presentation.ui.main.my_coupons.view_model.MyCouponsEvent
 import presentation.ui.main.my_coupons.view_model.MyCouponsState
 
 @Composable
 fun MyCouponsScreen(state: MyCouponsState, events: (MyCouponsEvent) -> Unit, popup: () -> Unit) {
-    val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     DefaultScreenUI(
         queue = state.errorQueue,
@@ -66,7 +60,7 @@ fun MyCouponsScreen(state: MyCouponsState, events: (MyCouponsEvent) -> Unit, pop
             ) {
                 items(state.couponsList) {
                     Coupon(it) {
-                        clipboardManager.setText(AnnotatedString(it.code))
+
                     }
                 }
             }

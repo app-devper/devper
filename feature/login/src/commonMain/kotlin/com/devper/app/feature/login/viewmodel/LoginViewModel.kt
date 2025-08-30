@@ -6,8 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
-
-
 import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.domain.usecases.KeepAliveUseCase
 import com.devper.app.core.domain.exception.ErrorMapper
@@ -107,11 +105,15 @@ class LoginViewModel(
             _uiState.update {
                 it.copy(progressBarState = ProgressBarState.FullScreenLoading)
             }
+
+            // Capture current state values safely within update block
+            val currentState = _uiState.value
             val param = LoginParam(
-                username = _uiState.value.usernameLogin,
-                password = _uiState.value.passwordLogin,
+                username = currentState.usernameLogin,
+                password = currentState.passwordLogin,
                 system = "POS"
             )
+
             val result = loginUseCase(param)
             result.fold(
                 onSuccess = {
@@ -155,20 +157,33 @@ class LoginViewModel(
             return
         }
 
-        val queue = _uiState.value.errorQueue
-        queue.add(uiComponent)
-        _uiState.update { it.copy(errorQueue = Queue(mutableListOf())) } // force recompose
-        _uiState.update { it.copy(errorQueue = queue, progressBarState = ProgressBarState.Idle) }
+        _uiState.update { currentState ->
+            val newQueueItems = currentState.errorQueue.items.toMutableList().apply {
+                add(uiComponent)
+            }
+            val newQueue = Queue(newQueueItems)
+            currentState.copy(
+                errorQueue = newQueue,
+                progressBarState = ProgressBarState.Idle
+            )
+        }
     }
 
     private fun removeHeadMessage() {
-        try {
-            val queue = _uiState.value.errorQueue
-            queue.remove() // can throw exception if empty
-            _uiState.update { it.copy(errorQueue = Queue(mutableListOf())) } // force recompose
-            _uiState.update { it.copy(errorQueue = queue) }
-        } catch (e: Exception) {
-            // do nothing, queue is empty
+        _uiState.update { currentState ->
+            try {
+                val currentQueueItems = currentState.errorQueue.items.toMutableList()
+                if (currentQueueItems.isNotEmpty()) {
+                    currentQueueItems.removeFirst()
+                    val newQueue = Queue(currentQueueItems)
+                    currentState.copy(errorQueue = newQueue)
+                } else {
+                    currentState
+                }
+            } catch (e: Exception) {
+                // Queue is empty, return current state unchanged
+                currentState
+            }
         }
     }
 
