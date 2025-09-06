@@ -20,7 +20,6 @@ data class SearchState(
     val selectedSort: Int = 0,
     val filterDialogState: UIComponentState = UIComponentState.Hide,
     val sortDialogState: UIComponentState = UIComponentState.Hide,
-
     val progressBarState: ProgressBarState = ProgressBarState.Idle,
     val networkState: NetworkState = NetworkState.Good,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),

@@ -23,11 +23,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.devper.app.core.design.theme.DefaultNavigationBarItemTheme
 import com.devper.app.feature.main.cart.CartNav
+import com.devper.app.feature.main.home.HomeNav
 import com.devper.app.feature.main.product.ProductNav
 import com.devper.app.feature.main.profile.ProfileNav
 import com.devper.app.feature.navigation.MainNavigation
 import org.jetbrains.compose.resources.painterResource
-import com.devper.app.feature.main.home.HomeNav
 
 @Composable
 fun MainNav(logout: () -> Unit) {
@@ -36,13 +36,13 @@ fun MainNav(logout: () -> Unit) {
     Scaffold(
         bottomBar = {
             BottomNavigationUI(navController = navBottomBarController)
-        }
+        },
     ) {
         Box {
             NavHost(
                 startDestination = MainNavigation.Home.route,
                 navController = navBottomBarController,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             ) {
                 composable(route = MainNavigation.Home.route) {
                     HomeNav(logout = logout)
@@ -58,38 +58,35 @@ fun MainNav(logout: () -> Unit) {
                 }
             }
         }
-
     }
 }
 
 @Composable
-fun BottomNavigationUI(
-    navController: NavController,
-) {
-
+fun BottomNavigationUI(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(10.dp),
-        shape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
-        )
+        shape =
+            RoundedCornerShape(
+                topStart = 16.dp,
+                topEnd = 16.dp,
+            ),
     ) {
         NavigationBar(
             containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.background,
-            tonalElevation = 8.dp
+            tonalElevation = 8.dp,
         ) {
-
-            val items = listOf(
-                MainNavigation.Home,
-                MainNavigation.Product,
-                MainNavigation.Cart,
-                MainNavigation.Profile,
-            )
+            val items =
+                listOf(
+                    MainNavigation.Home,
+                    MainNavigation.Product,
+                    MainNavigation.Cart,
+                    MainNavigation.Profile,
+                )
             items.forEach {
                 NavigationBarItem(
                     label = {
@@ -100,7 +97,7 @@ fun BottomNavigationUI(
                     icon = {
                         Icon(
                             painterResource(if (it.route == currentRoute) it.selectedIcon else it.unSelectedIcon),
-                            it.title
+                            it.title,
                         )
                     },
                     onClick = {
@@ -115,7 +112,8 @@ fun BottomNavigationUI(
                                 restoreState = true
                             }
                         }
-                    })
+                    },
+                )
             }
         }
     }

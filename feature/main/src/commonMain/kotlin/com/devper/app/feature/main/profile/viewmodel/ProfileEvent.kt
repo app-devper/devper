@@ -4,15 +4,15 @@ import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.UIComponent
 
 sealed class ProfileEvent {
-   data object OnRemoveHeadFromQueue : ProfileEvent()
+    data object OnRemoveHeadFromQueue : ProfileEvent()
 
     data class Error(
-        val uiComponent: UIComponent
+        val uiComponent: UIComponent,
     ) : ProfileEvent()
 
-   data object OnRetryNetwork : ProfileEvent()
+    data object OnRetryNetwork : ProfileEvent()
+
     data class OnUpdateNetworkState(
-        val networkState: NetworkState
+        val networkState: NetworkState,
     ) : ProfileEvent()
-
 }

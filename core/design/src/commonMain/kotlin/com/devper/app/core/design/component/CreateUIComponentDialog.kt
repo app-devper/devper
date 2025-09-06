@@ -15,9 +15,10 @@ fun CreateUIComponentDialog(
     description: String,
     onDismiss: () -> Unit,
 ) {
-    val shouldDismiss = remember {
-        mutableStateOf(false)
-    }
+    val shouldDismiss =
+        remember {
+            mutableStateOf(false)
+        }
 
     if (shouldDismiss.value) return
 
@@ -29,7 +30,6 @@ fun CreateUIComponentDialog(
             onDismiss()
         },
     )
-
 }
 
 @Composable
@@ -40,17 +40,18 @@ fun GenericDialog(
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
-        properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
-        ),
+        properties =
+            DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+            ),
         onDismissRequest = {
             onDismiss()
         },
         modifier = modifier,
         confirmButton = {
             Button(
-                onClick = onDismiss
+                onClick = onDismiss,
             ) {
                 Text(text = "OK")
             }
@@ -60,10 +61,6 @@ fun GenericDialog(
         },
         text = {
             Text(text = description)
-        }
+        },
     )
 }
-
-
-
-

@@ -13,71 +13,79 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-val Shapes = Shapes(
-    extraSmall = RoundedCornerShape(4.dp),
-    small = RoundedCornerShape(8.dp),
-    medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(32.dp)
-)
+val Shapes =
+    Shapes(
+        extraSmall = RoundedCornerShape(4.dp),
+        small = RoundedCornerShape(8.dp),
+        medium = RoundedCornerShape(16.dp),
+        large = RoundedCornerShape(24.dp),
+        extraLarge = RoundedCornerShape(32.dp),
+    )
 
 @Composable
-fun DefaultImageButtonTheme() = buttonColors(
-    containerColor = MaterialTheme.colorScheme.background,
-    contentColor = MaterialTheme.colorScheme.primary,
-    disabledContentColor = MaterialTheme.colorScheme.primary
-)
+fun DefaultImageButtonTheme() =
+    buttonColors(
+        containerColor = MaterialTheme.colorScheme.background,
+        contentColor = MaterialTheme.colorScheme.primary,
+        disabledContentColor = MaterialTheme.colorScheme.primary,
+    )
 
 @Composable
-fun DefaultButtonWithBorderPrimaryTheme() = buttonColors(
-    containerColor = MaterialTheme.colorScheme.background,
-    contentColor = MaterialTheme.colorScheme.primary,
-    disabledContainerColor =  MaterialTheme.colorScheme.background,
-    disabledContentColor = MaterialTheme.colorScheme.primary
-)
+fun DefaultButtonWithBorderPrimaryTheme() =
+    buttonColors(
+        containerColor = MaterialTheme.colorScheme.background,
+        contentColor = MaterialTheme.colorScheme.primary,
+        disabledContainerColor = MaterialTheme.colorScheme.background,
+        disabledContentColor = MaterialTheme.colorScheme.primary,
+    )
 
 @Composable
-fun DefaultButtonTheme() = buttonColors(
-    containerColor = MaterialTheme.colorScheme.primary,
-    contentColor = MaterialTheme.colorScheme.background,
-    disabledContentColor = MaterialTheme.colorScheme.primary
-)
+fun DefaultButtonTheme() =
+    buttonColors(
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.background,
+        disabledContentColor = MaterialTheme.colorScheme.primary,
+    )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DefaultTextFieldTheme() = textFieldColors(
-    focusedContainerColor = TextFieldColor,
-    unfocusedContainerColor = TextFieldColor,
-    cursorColor = MaterialTheme.colorScheme.onBackground,
-    focusedIndicatorColor = Color.Transparent,
-    unfocusedIndicatorColor = Color.Transparent,
-    disabledContainerColor = TextFieldColor,
-    disabledTextColor = MaterialTheme.colorScheme.onBackground,
-    disabledIndicatorColor = Color.Transparent,
-)
+fun DefaultTextFieldTheme() =
+    textFieldColors(
+        focusedContainerColor = TextFieldColor,
+        unfocusedContainerColor = TextFieldColor,
+        cursorColor = MaterialTheme.colorScheme.onBackground,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledContainerColor = TextFieldColor,
+        disabledTextColor = MaterialTheme.colorScheme.onBackground,
+        disabledIndicatorColor = Color.Transparent,
+    )
 
 @Composable
-fun DefaultCheckBoxTheme() = CheckboxDefaults.colors(
-    checkedColor = MaterialTheme.colorScheme.primary,
-    uncheckedColor = MaterialTheme.colorScheme.primary,
-    checkmarkColor = MaterialTheme.colorScheme.background
-)
+fun DefaultCheckBoxTheme() =
+    CheckboxDefaults.colors(
+        checkedColor = MaterialTheme.colorScheme.primary,
+        uncheckedColor = MaterialTheme.colorScheme.primary,
+        checkmarkColor = MaterialTheme.colorScheme.background,
+    )
 
 @Composable
-fun DefaultNavigationBarItemTheme() = NavigationBarItemDefaults.colors(
-    selectedIconColor = MaterialTheme.colorScheme.primary,
-    unselectedIconColor = MaterialTheme.colorScheme.primary,
-    unselectedTextColor = MaterialTheme.colorScheme.primary.copy(.7f),
-    selectedTextColor = MaterialTheme.colorScheme.primary,
-    indicatorColor = MaterialTheme.colorScheme.background,
-)
+fun DefaultNavigationBarItemTheme() =
+    NavigationBarItemDefaults.colors(
+        selectedIconColor = MaterialTheme.colorScheme.primary,
+        unselectedIconColor = MaterialTheme.colorScheme.primary,
+        unselectedTextColor = MaterialTheme.colorScheme.primary.copy(.7f),
+        selectedTextColor = MaterialTheme.colorScheme.primary,
+        indicatorColor = MaterialTheme.colorScheme.background,
+    )
 
 @Composable
-fun TextFieldWithTransparentTheme() = TextFieldDefaults.colors(
-    focusedIndicatorColor = Color.Transparent,
-    unfocusedIndicatorColor = Color.Transparent,
-    disabledIndicatorColor = Color.Transparent,
-    focusedContainerColor = Color.Transparent,
-    disabledContainerColor = Color.Transparent,
-    unfocusedContainerColor = Color.Transparent
-)
+fun TextFieldWithTransparentTheme() =
+    TextFieldDefaults.colors(
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        focusedContainerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+    )

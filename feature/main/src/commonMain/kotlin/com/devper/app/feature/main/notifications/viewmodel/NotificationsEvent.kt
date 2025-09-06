@@ -1,19 +1,18 @@
-package presentation.ui.main.notifications.view_model
+package com.devper.app.feature.main.notifications.viewmodel
 
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.UIComponent
 
 sealed class NotificationsEvent {
-
     data object OnRemoveHeadFromQueue : NotificationsEvent()
 
     data class Error(
-        val uiComponent: UIComponent
+        val uiComponent: UIComponent,
     ) : NotificationsEvent()
 
     data object OnRetryNetwork : NotificationsEvent()
 
     data class OnUpdateNetworkState(
-        val networkState: NetworkState
+        val networkState: NetworkState,
     ) : NotificationsEvent()
 }

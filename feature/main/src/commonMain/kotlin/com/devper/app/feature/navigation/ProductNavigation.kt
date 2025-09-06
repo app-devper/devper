@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data object Product
 
 @Serializable
-data class ProductDetail(val id: String)
-
-
+data class ProductDetail(
+    val id: String,
+)

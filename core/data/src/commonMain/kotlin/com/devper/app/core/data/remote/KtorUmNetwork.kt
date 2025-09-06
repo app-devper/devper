@@ -14,7 +14,6 @@ import io.ktor.client.request.setBody
 class KtorUmNetwork(
     private val httpModule: HttpModule,
 ) : BaseNetwork {
-
     private var baseUrl: String = httpModule.baseUrl
 
     private val client by lazy { httpModule.client }
@@ -25,44 +24,44 @@ class KtorUmNetwork(
         this.baseUrl = baseUrl
     }
 
-    suspend fun login(request: LoginRequest): LoginResponse {
-        return client.post("$baseUrl/api/um/v1/auth/login") {
-            setBody(request.body)
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
+    suspend fun login(request: LoginRequest): LoginResponse =
+        client
+            .post("$baseUrl/api/um/v1/auth/login") {
+                setBody(request.body)
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 
-    suspend fun keepAlive(): LoginResponse {
-        return client.get("$baseUrl/api/um/v1/auth/keep-alive") {
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
+    suspend fun keepAlive(): LoginResponse =
+        client
+            .get("$baseUrl/api/um/v1/auth/keep-alive") {
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 
-    suspend fun getSystem(): SystemResponse {
-        return client.get("$baseUrl/api/um/v1/auth/system") {
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
+    suspend fun getSystem(): SystemResponse =
+        client
+            .get("$baseUrl/api/um/v1/auth/system") {
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 
-    suspend fun logout() {
-        return client.post("$baseUrl/api/um/v1/auth/logout") {
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
+    suspend fun logout(): Unit =
+        client
+            .post("$baseUrl/api/um/v1/auth/logout") {
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 
-    suspend fun getUserInfo(): UserResponse {
-        return client.get("$baseUrl/api/um/v1/user/info") {
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
+    suspend fun getUserInfo(): UserResponse =
+        client
+            .get("$baseUrl/api/um/v1/user/info") {
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 }

@@ -7,26 +7,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Spacer_4dp() {
+fun Spacer4dp() {
     Spacer(modifier = Modifier.size(4.dp))
 }
 
 @Composable
-fun Spacer_8dp() {
+fun Spacer8dp() {
     Spacer(modifier = Modifier.size(8.dp))
 }
 
 @Composable
-fun Spacer_12dp() {
+fun Spacer12dp() {
     Spacer(modifier = Modifier.size(12.dp))
 }
 
 @Composable
-fun Spacer_16dp() {
+fun Spacer16dp() {
     Spacer(modifier = Modifier.size(16.dp))
 }
 
 @Composable
-fun Spacer_32dp() {
+fun Spacer32dp() {
     Spacer(modifier = Modifier.size(32.dp))
 }

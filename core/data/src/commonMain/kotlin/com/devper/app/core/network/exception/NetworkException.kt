@@ -8,17 +8,16 @@ class NetworkException(
     override val message: String,
     override val cause: Throwable? = null,
     val code: Int,
-    val response: String
+    val response: String,
 ) : Exception(message, cause)
 
-suspend inline fun <reified T> HttpResponse.toBody(): T {
-    return if (status.value in 200..299) {
+suspend inline fun <reified T> HttpResponse.toBody(): T =
+    if (status.value in 200..299) {
         body()
     } else {
         throw NetworkException(
             message = status.description,
             code = status.value,
-            response = bodyAsText()
+            response = bodyAsText(),
         )
     }
-}

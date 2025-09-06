@@ -11,8 +11,5 @@ class GetUserInfoUseCase(
     private val userRepo: UserRepository,
     private val session: SessionProvider,
 ) : UseCase<Unit, User>(dispatcher.io()) {
-
-    override suspend fun execute(param: Unit): User {
-        return userRepo.getUserInfo()
-    }
+    override suspend fun execute(param: Unit): User = userRepo.getUserInfo()
 }

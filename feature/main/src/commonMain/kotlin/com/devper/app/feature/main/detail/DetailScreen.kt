@@ -43,55 +43,55 @@ import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE
 import com.devper.app.core.design.component.DefaultButton
 import com.devper.app.core.design.component.DefaultScreenUI
 import com.devper.app.core.design.component.ExpandingText
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_4dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer4dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
 import com.devper.app.core.design.component.rememberCustomImagePainter
 import com.devper.app.core.design.theme.BackgroundContent
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.core.design.theme.orange_400
+import com.devper.app.feature.main.detail.viewmodel.DetailEvent
+import com.devper.app.feature.main.detail.viewmodel.DetailState
 import com.devper.app.feature.utils.convertDate
-import presentation.ui.main.detail.view_model.DetailEvent
-import presentation.ui.main.detail.view_model.DetailState
-
 
 @Composable
 fun DetailScreen(
     popup: () -> Unit,
     navigateToMoreComment: (Int) -> Unit,
     state: DetailState,
-    events: (DetailEvent) -> Unit
+    events: (DetailEvent) -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(DetailEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(DetailEvent.OnRetryNetwork) }
+        onTryAgain = { events(DetailEvent.OnRetryNetwork) },
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
-                modifier = Modifier.fillMaxSize().align(Alignment.TopCenter)
-                    .verticalScroll(rememberScrollState())
-                    .padding(bottom = 75.dp)
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .align(Alignment.TopCenter)
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 75.dp),
             ) {
-
                 Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
-
                     Image(
                         painter = rememberCustomImagePainter(state.selectedImage),
                         null,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     )
 
                     Box(modifier = Modifier.padding(16.dp).align(Alignment.TopStart)) {
                         CircleButton(
                             modifier = Modifier.padding(4.dp),
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            onClick = { popup() })
+                            onClick = { popup() },
+                        )
                     }
 
                     Box(modifier = Modifier.padding(16.dp).align(Alignment.TopEnd)) {
@@ -100,20 +100,24 @@ fun DetailScreen(
                             imageVector = if (state.product.isLike) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                             onClick = {
                                 events(DetailEvent.Like(state.product.id))
-                            })
+                            },
+                        )
                     }
 
                     Box(
-                        modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
-                            .padding(16.dp)
+                        modifier =
+                            Modifier
+                                .align(Alignment.BottomCenter)
+                                .fillMaxWidth()
+                                .padding(16.dp),
                     ) {
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-                            shape = MaterialTheme.shapes.small
+                            shape = MaterialTheme.shapes.small,
                         ) {
                             LazyRow(
                                 modifier = Modifier.fillMaxWidth(),
-                                contentPadding = PaddingValues(8.dp)
+                                contentPadding = PaddingValues(8.dp),
                             ) {
                                 items(state.product.gallery) {
                                     ImageSliderBox(it) {
@@ -123,37 +127,34 @@ fun DetailScreen(
                             }
                         }
                     }
-
-
                 }
 
-                Spacer_32dp()
+                Spacer32dp()
 
                 Column(modifier = Modifier.padding(vertical = 16.dp)) {
-
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
                             state.product.category.name,
-                            style = MaterialTheme.typography.titleMedium
+                            style = MaterialTheme.typography.titleMedium,
                         )
 
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
                         ) {
                             Icon(Icons.Filled.Star, null, tint = orange_400)
                             Text(
                                 state.product.rate.toString(),
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
                             )
                         }
                     }
 
-                    Spacer_16dp()
+                    Spacer16dp()
 
                     Text(
                         state.product.title,
@@ -163,15 +164,15 @@ fun DetailScreen(
                         overflow = TextOverflow.Ellipsis,
                     )
 
-                    Spacer_16dp()
+                    Spacer16dp()
 
                     Text(
                         "Product Details",
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
 
-                    Spacer_8dp()
+                    Spacer8dp()
 
                     ExpandingText(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
@@ -179,21 +180,20 @@ fun DetailScreen(
                         style = MaterialTheme.typography.bodySmall,
                     ) {}
 
-
-                    Spacer_16dp()
+                    Spacer16dp()
 
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         thickness = 1.dp,
-                        color = BackgroundContent
+                        color = BackgroundContent,
                     )
 
-                    Spacer_16dp()
+                    Spacer16dp()
 
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
                             text = "Read some comments",
@@ -201,43 +201,42 @@ fun DetailScreen(
                         )
                         Text(
                             text = "More",
-                            modifier = Modifier
-                                .clickable {
-                                    navigateToMoreComment(state.product.id)
-                                },
+                            modifier =
+                                Modifier
+                                    .clickable {
+                                        navigateToMoreComment(state.product.id)
+                                    },
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
                         )
-
                     }
 
-                    Spacer_8dp()
+                    Spacer8dp()
 
                     if (state.product.comments.isEmpty()) {
                         Text(
                             "No Comments!",
                             style = MaterialTheme.typography.titleLarge,
                             color = BorderColor,
-                            modifier = Modifier.padding(horizontal = 32.dp)
+                            modifier = Modifier.padding(horizontal = 32.dp),
                         )
                     }
 
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
-                        contentPadding = PaddingValues(horizontal = 24.dp)
+                        contentPadding = PaddingValues(horizontal = 24.dp),
                     ) {
                         items(state.product.comments, key = { it.createAt }) {
                             CommentBox(comment = it)
                         }
                     }
 
-                    Spacer_16dp()
-
+                    Spacer16dp()
                 }
             }
             Box(modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()) {
                 BuyButtonBox(
-                    state.product
+                    state.product,
                 ) {
                     events(DetailEvent.AddBasket(state.product.id))
                 }
@@ -247,24 +246,28 @@ fun DetailScreen(
 }
 
 @Composable
-fun BuyButtonBox(product: Product, onClick: () -> Unit) {
+fun BuyButtonBox(
+    product: Product,
+    onClick: () -> Unit,
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(8.dp),
-        shape = RoundedCornerShape(
-            topStart = 8.dp,
-            topEnd = 8.dp
-        )
+        shape =
+            RoundedCornerShape(
+                topStart = 8.dp,
+                topEnd = 8.dp,
+            ),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(.3f),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Text("Total Price", style = MaterialTheme.typography.titleMedium)
                 Text(product.getPrice(), style = MaterialTheme.typography.titleLarge)
@@ -272,7 +275,7 @@ fun BuyButtonBox(product: Product, onClick: () -> Unit) {
 
             DefaultButton(
                 modifier = Modifier.fillMaxWidth(.7f).height(DEFAULT__BUTTON_SIZE),
-                text = "Add to Cart"
+                text = "Add to Cart",
             ) {
                 onClick()
             }
@@ -281,50 +284,53 @@ fun BuyButtonBox(product: Product, onClick: () -> Unit) {
 }
 
 @Composable
-fun CommentBox(comment: Comment, modifier: Modifier = Modifier.width(300.dp)) {
+fun CommentBox(
+    comment: Comment,
+    modifier: Modifier = Modifier.width(300.dp),
+) {
     Box(modifier = Modifier.padding(8.dp), contentAlignment = Alignment.Center) {
         Card(
             modifier = modifier.height(160.dp),
-            elevation = CardDefaults.cardElevation(8.dp), shape = MaterialTheme.shapes.small
+            elevation = CardDefaults.cardElevation(8.dp),
+            shape = MaterialTheme.shapes.small,
         ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(8.dp),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         CircleImage(
-                            image = comment.user.image
+                            image = comment.user.image,
                         )
-                        Spacer_4dp()
+                        Spacer4dp()
                         Text(comment.user.fetchName(), style = MaterialTheme.typography.titleSmall)
                     }
                     Text(
                         comment.createAt.convertDate(),
-                        style = MaterialTheme.typography.titleSmall
+                        style = MaterialTheme.typography.titleSmall,
                     )
                 }
-                Spacer_8dp()
+                Spacer8dp()
                 Column(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         comment.comment,
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
                     )
-
 
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(Icons.Filled.Star, null, tint = orange_400)
                         Text(comment.rate.toString(), style = MaterialTheme.typography.bodySmall)
@@ -336,10 +342,18 @@ fun CommentBox(comment: Comment, modifier: Modifier = Modifier.width(300.dp)) {
 }
 
 @Composable
-fun ImageSliderBox(it: String, onClick: () -> Unit) {
+fun ImageSliderBox(
+    it: String,
+    onClick: () -> Unit,
+) {
     Box(
-        modifier = Modifier.size(65.dp).clip(MaterialTheme.shapes.small).padding(4.dp)
-            .noRippleClickable { onClick() }) {
+        modifier =
+            Modifier
+                .size(65.dp)
+                .clip(MaterialTheme.shapes.small)
+                .padding(4.dp)
+                .noRippleClickable { onClick() },
+    ) {
         Image(
             rememberCustomImagePainter(it),
             null,

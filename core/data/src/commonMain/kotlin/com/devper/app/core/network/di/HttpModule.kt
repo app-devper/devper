@@ -18,35 +18,45 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val httpModule = module {
-    singleOf(::HttpModule)
-}
+val httpModule =
+    module {
+        singleOf(::HttpModule)
+    }
 
-class HttpModule(val networkConfig: NetworkConfig) {
+class HttpModule(
+    val networkConfig: NetworkConfig,
+) {
     val client: HttpClient by lazy { createHttpClient() }
     val baseUrl: String by lazy { networkConfig.getBaseUrl() }
     val isDebug: Boolean by lazy { networkConfig.isDebug() }
 
     @OptIn(ExperimentalSerializationApi::class)
-    private fun createHttpClient(): HttpClient {
-        return HttpClient {
+    private fun createHttpClient(): HttpClient =
+        HttpClient {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    explicitNulls = false
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        explicitNulls = false
+                    },
+                )
             }
-            install(HttpCache)
+            install(
+                HttpCache,
+            )
 
             if (isDebug) {
-                install(Logging) {
+                install(
+                    Logging,
+                ) {
                     level = LogLevel.ALL
-                    logger = object : Logger {
-                        override fun log(message: String) {
-                            printLogI("HTTP Client", message)
+                    logger =
+                        object : Logger {
+                            override fun log(message: String) {
+                                printLogI("HTTP Client", message)
+                            }
                         }
-                    }
                 }
             }
 
@@ -54,5 +64,4 @@ class HttpModule(val networkConfig: NetworkConfig) {
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
-    }
 }

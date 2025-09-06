@@ -14,9 +14,8 @@ import com.russhwolf.settings.Settings
 
 class LoginRepositoryImpl(
     private val umNetwork: KtorUmNetwork,
-    private val settings: Settings
+    private val settings: Settings,
 ) : LoginRepository {
-
     override suspend fun login(param: LoginParam): Login {
         try {
             umNetwork.login(param.toLoginRequest()).let {
@@ -55,9 +54,7 @@ class LoginRepositoryImpl(
         }
     }
 
-    override suspend fun getAccessToken(): String {
-        return settings.getString(ACCESS_TOKEN, "")
-    }
+    override suspend fun getAccessToken(): String = settings.getString(ACCESS_TOKEN, "")
 
     override suspend fun setAccessToken(accessToken: String) {
         settings.putString(ACCESS_TOKEN, accessToken)
@@ -66,5 +63,4 @@ class LoginRepositoryImpl(
     companion object {
         private const val ACCESS_TOKEN = "access_token"
     }
-
 }

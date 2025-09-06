@@ -11,17 +11,15 @@ import org.koin.compose.koinInject
 fun ProductScreen(
     state: ProductState,
     events: (ProductEvent) -> Unit,
-    navigateToDetail: (String) -> Unit
+    navigateToDetail: (String) -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(ProductEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(ProductEvent.OnRetryNetwork) }
+        onTryAgain = { events(ProductEvent.OnRetryNetwork) },
     ) {
-
         ProductsScreen(
             viewModel = koinInject(),
             onSelected = { product ->
@@ -29,9 +27,5 @@ fun ProductScreen(
             },
             onMenu = { },
         )
-
     }
 }
-
-
-

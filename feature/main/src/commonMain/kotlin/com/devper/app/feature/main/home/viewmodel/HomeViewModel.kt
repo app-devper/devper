@@ -4,17 +4,16 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.domain.usecases.GetProductsUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getProductsUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetProductsUseCase,
 ) : ViewModel() {
-
     val state: MutableState<HomeState> = mutableStateOf(HomeState())
 
     fun getProduct() {
@@ -24,14 +23,13 @@ class HomeViewModel(
                 onSuccess = { products ->
                 },
                 onFailure = { error ->
-                }
+                },
             )
         }
     }
 
     fun onTriggerEvent(event: HomeEvent) {
         when (event) {
-
             is HomeEvent.Like -> {
                 likeProduct(id = event.id)
             }
@@ -58,62 +56,73 @@ class HomeViewModel(
         getHome()
     }
 
-
     private fun likeProduct(id: Int) {
-
     }
 
-
     private fun updateLike(id: Int) {
-
         updateMostSaleProductLike(id = id)
         updateNewestProductLike(id = id)
         updateFlashSaleProductLike(id = id)
-
     }
 
     private fun updateFlashSaleProductLike(id: Int) {
-
-        val tmpFlashSale = state.value.home.flashSale.products.toMutableList()
+        val tmpFlashSale =
+            state.value.home.flashSale.products
+                .toMutableList()
         var currentItemFlashSale = tmpFlashSale.find { it.id == id }
         val indexCurrentItemFlashSale = tmpFlashSale.indexOf(currentItemFlashSale)
         val newLikes3 =
-            if (currentItemFlashSale?.isLike == true) currentItemFlashSale.likes.minus(1) else currentItemFlashSale?.likes?.plus(
-                1
+            if (currentItemFlashSale?.isLike == true) {
+                currentItemFlashSale.likes.minus(1)
+            } else {
+                currentItemFlashSale?.likes?.plus(
+                    1,
+                )
+            }
+        currentItemFlashSale =
+            currentItemFlashSale?.copy(
+                isLike = !currentItemFlashSale.isLike,
+                likes = newLikes3 ?: 0,
             )
-        currentItemFlashSale = currentItemFlashSale?.copy(
-            isLike = !currentItemFlashSale.isLike,
-            likes = newLikes3 ?: 0
-        )
         if (currentItemFlashSale != null) {
             tmpFlashSale[indexCurrentItemFlashSale] = currentItemFlashSale
         }
 
         state.value =
             state.value.copy(
-                home = state.value.home.copy(
-                    flashSale = state.value.home.flashSale.copy(
-                        products = tmpFlashSale
-                    )
-                )
+                home =
+                    state.value.home.copy(
+                        flashSale =
+                            state.value.home.flashSale.copy(
+                                products = tmpFlashSale,
+                            ),
+                    ),
             )
     }
 
     private fun updateNewestProductLike(id: Int) {
-        val tmpNewestProduct = state.value.home.newestProduct.toMutableList()
+        val tmpNewestProduct =
+            state.value.home.newestProduct
+                .toMutableList()
         var currentItemNewestProduct = tmpNewestProduct.find { it.id == id }
         val indexCurrentItemNewestProduct = tmpNewestProduct.indexOf(currentItemNewestProduct)
 
         val newLikes2 =
-            if (currentItemNewestProduct?.isLike == true) currentItemNewestProduct.likes.minus(1) else currentItemNewestProduct?.likes?.plus(
-                1
+            if (currentItemNewestProduct?.isLike ==
+                true
+            ) {
+                currentItemNewestProduct.likes.minus(1)
+            } else {
+                currentItemNewestProduct?.likes?.plus(
+                    1,
+                )
+            }
+
+        currentItemNewestProduct =
+            currentItemNewestProduct?.copy(
+                isLike = !currentItemNewestProduct.isLike,
+                likes = newLikes2 ?: 0,
             )
-
-        currentItemNewestProduct = currentItemNewestProduct?.copy(
-            isLike = !currentItemNewestProduct.isLike,
-            likes = newLikes2 ?: 0
-        )
-
 
         if (currentItemNewestProduct != null) {
             tmpNewestProduct[indexCurrentItemNewestProduct] = currentItemNewestProduct
@@ -124,14 +133,20 @@ class HomeViewModel(
     }
 
     private fun updateMostSaleProductLike(id: Int) {
-        val tmpMostSale = state.value.home.mostSale.toMutableList()
+        val tmpMostSale =
+            state.value.home.mostSale
+                .toMutableList()
         var currentItemMostSale = tmpMostSale.find { it.id == id }
         val indexCurrentItemMostSale = tmpMostSale.indexOf(currentItemMostSale)
 
         val newLikes1 =
-            if (currentItemMostSale?.isLike == true) currentItemMostSale.likes.minus(1) else currentItemMostSale?.likes?.plus(
-                1
-            )
+            if (currentItemMostSale?.isLike == true) {
+                currentItemMostSale.likes.minus(1)
+            } else {
+                currentItemMostSale?.likes?.plus(
+                    1,
+                )
+            }
 
         currentItemMostSale =
             currentItemMostSale?.copy(isLike = !currentItemMostSale.isLike, likes = newLikes1 ?: 0)
@@ -144,11 +159,8 @@ class HomeViewModel(
             state.value.copy(home = state.value.home.copy(mostSale = tmpMostSale))
     }
 
-
     private fun getHome() {
-
     }
-
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
         if (uiComponent is UIComponent.None) {
@@ -173,15 +185,11 @@ class HomeViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getHome()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

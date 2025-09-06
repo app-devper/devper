@@ -6,5 +6,5 @@ data class Home(
     val categories: List<Category> = listOf(),
     val flashSale: FlashSale = FlashSale(),
     val mostSale: List<Product> = listOf(),
-    val newestProduct: List<Product> = listOf()
+    val newestProduct: List<Product> = listOf(),
 )

@@ -29,5 +29,5 @@ data class UserResponse(
     @SerialName("updatedBy")
     val updatedBy: String,
     @SerialName("updatedDate")
-    val updatedDate: String
+    val updatedDate: String,
 )

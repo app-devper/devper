@@ -15,13 +15,13 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.devper.app.core.design.theme.DefaultTextFieldTheme
+import com.devper.app.core.design.theme.IconColorGrey
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.ic_password_hide
 import com.devper.app.design.resources.ic_password_show
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import com.devper.app.core.design.theme.DefaultTextFieldTheme
-import com.devper.app.core.design.theme.IconColorGrey
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -54,26 +54,30 @@ fun PasswordTextField(
                 }
             }) {
                 when (isPasswordVisible.value) {
-                    true -> Icon(
-                        painter = painterResource(Res.drawable.ic_password_hide),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                    )
-                    false -> Icon(
-                        painter = painterResource(Res.drawable.ic_password_show),
-                        contentDescription = null,
-                        tint = IconColorGrey,
-                    )
+                    true ->
+                        Icon(
+                            painter = painterResource(Res.drawable.ic_password_hide),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    false ->
+                        Icon(
+                            painter = painterResource(Res.drawable.ic_password_show),
+                            contentDescription = null,
+                            tint = IconColorGrey,
+                        )
                 }
             }
         },
-        keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Done,
-            keyboardType = KeyboardType.Password,
-        ),
-        visualTransformation = when (isPasswordVisible.value) {
-            true -> VisualTransformation.None
-            false -> PasswordVisualTransformation()
-        },
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Password,
+            ),
+        visualTransformation =
+            when (isPasswordVisible.value) {
+                true -> VisualTransformation.None
+                false -> PasswordVisualTransformation()
+            },
     )
 }

@@ -11,10 +11,5 @@ class GetProductsUseCase(
     private val productRepo: ProductRepository,
     private val session: SessionProvider,
 ) : UseCase<Unit, List<Product>>(dispatcher.io()) {
-
-    override suspend fun execute(param: Unit): List<Product> {
-        return productRepo.getLocalProducts()
-    }
+    override suspend fun execute(param: Unit): List<Product> = productRepo.getLocalProducts()
 }
-
-

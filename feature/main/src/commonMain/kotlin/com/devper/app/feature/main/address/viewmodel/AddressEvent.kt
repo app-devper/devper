@@ -1,12 +1,13 @@
-package presentation.ui.main.address.view_model
+package com.devper.app.feature.main.address.viewmodel
 
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.UIComponent
 import com.devper.app.core.design.state.UIComponentState
 
 sealed class AddressEvent {
-
-    data class OnUpdateAddAddressDialogState(val value: UIComponentState) : AddressEvent()
+    data class OnUpdateAddAddressDialogState(
+        val value: UIComponentState,
+    ) : AddressEvent()
 
     data class AddAddress(
         val address: String,
@@ -16,16 +17,15 @@ sealed class AddressEvent {
         val zipCode: String,
     ) : AddressEvent()
 
-
     data object OnRemoveHeadFromQueue : AddressEvent()
 
     data class Error(
-        val uiComponent: UIComponent
+        val uiComponent: UIComponent,
     ) : AddressEvent()
 
     data object OnRetryNetwork : AddressEvent()
 
     data class OnUpdateNetworkState(
-        val networkState: NetworkState
+        val networkState: NetworkState,
     ) : AddressEvent()
 }

@@ -1,4 +1,4 @@
-package presentation.ui.main.detail.view_model
+package com.devper.app.feature.main.detail.viewmodel
 
 import business.domain.main.Product
 import com.devper.app.core.design.state.NetworkState
@@ -9,7 +9,6 @@ import com.devper.app.core.design.state.UIComponent
 data class DetailState(
     val product: Product = Product(),
     val selectedImage: String = "",
-
     val progressBarState: ProgressBarState = ProgressBarState.Idle,
     val networkState: NetworkState = NetworkState.Good,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),

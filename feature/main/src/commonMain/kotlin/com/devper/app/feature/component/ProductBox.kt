@@ -29,25 +29,32 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import business.domain.main.Product
 import com.devper.app.core.design.component.AppImage
-import com.devper.app.core.design.component.Spacer_4dp
+import com.devper.app.core.design.component.Spacer4dp
 import com.devper.app.core.design.component.noRippleClickable
 import com.devper.app.core.design.theme.BackgroundContent
 import com.devper.app.core.design.theme.orange_400
-
 
 @Composable
 fun ProductBox(
     modifier: Modifier = Modifier.width(180.dp),
     product: Product,
     onLikeClick: () -> Unit,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-    Box(modifier = modifier
-        .height(260.dp).padding(8.dp).noRippleClickable { onClick() }) {
+    Box(
+        modifier =
+            modifier
+                .height(260.dp)
+                .padding(8.dp)
+                .noRippleClickable { onClick() },
+    ) {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(.8f)
-                    .clip(MaterialTheme.shapes.small)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(.8f)
+                        .clip(MaterialTheme.shapes.small),
             ) {
                 AppImage(
                     imageUrl = product.image,
@@ -56,56 +63,58 @@ fun ProductBox(
                     contentScale = ContentScale.Crop,
                 )
                 Box(
-                    modifier = Modifier.padding(8.dp)
-                        .align(Alignment.TopEnd)
+                    modifier =
+                        Modifier
+                            .padding(8.dp)
+                            .align(Alignment.TopEnd),
                 ) {
                     Box(
-                        modifier = Modifier
-                            .noRippleClickable { onLikeClick() }
-                            .background(BackgroundContent, CircleShape)
-                            .size(30.dp)
-                            .padding(6.dp)
+                        modifier =
+                            Modifier
+                                .noRippleClickable { onLikeClick() }
+                                .background(BackgroundContent, CircleShape)
+                                .size(30.dp)
+                                .padding(6.dp),
                     ) {
                         Icon(
                             if (product.isLike) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
                         )
-
                     }
                 }
             }
 
-            Spacer_4dp()
+            Spacer4dp()
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     product.title,
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(Icons.Filled.Star, null, tint = orange_400)
                     Text(product.rate.toString(), style = MaterialTheme.typography.bodySmall)
                 }
             }
 
-            Spacer_4dp()
+            Spacer4dp()
 
             Text(
                 product.getPrice(),
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }

@@ -23,11 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.devper.app.core.design.state.UIComponentState
 import com.devper.app.core.design.component.DefaultButton
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer8dp
+import com.devper.app.core.design.state.UIComponentState
 import com.devper.app.feature.component.CategoryChipsBox
 import com.devper.app.feature.main.search.viewmodel.SearchEvent
 import com.devper.app.feature.main.search.viewmodel.SearchState
@@ -38,75 +38,73 @@ fun FilterDialog(
     state: SearchState,
     events: (SearchEvent) -> Unit,
 ) {
-
-
     var selectedRange by remember {
         mutableStateOf(state.selectedRange)
     }
 
     val selectedCategories = state.selectedCategory.toMutableStateList()
 
-
     BasicAlertDialog(
         onDismissRequest = {
             events(SearchEvent.OnUpdateFilterDialogState(UIComponentState.Hide))
         },
-        modifier = Modifier
-            .fillMaxWidth(0.9f).background(MaterialTheme.colorScheme.background)
+        modifier =
+            Modifier
+                .fillMaxWidth(0.9f)
+                .background(MaterialTheme.colorScheme.background),
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
-
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(
                 "Filter",
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Text(
                 "Price:",
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
             RangeSlider(
                 value = selectedRange,
                 onValueChange = { selectedRange = it },
-                valueRange = state.searchFilter.minPrice
-                    .toFloat()..state.searchFilter.maxPrice.toFloat(),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                valueRange =
+                    state.searchFilter.minPrice
+                        .toFloat()..state.searchFilter.maxPrice.toFloat(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             )
             Row(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     "$${selectedRange.start.toInt()}",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
                     "$${selectedRange.endInclusive.toInt()}",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
 
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(
                 "Category:",
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-            Spacer_8dp()
+            Spacer8dp()
 
             LazyRow(modifier = Modifier.fillMaxWidth()) {
                 items(state.searchFilter.categories, { it.id }) {
@@ -120,7 +118,7 @@ fun FilterDialog(
                 }
             }
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
                 DefaultButton(modifier = Modifier.weight(1f), text = "Reset") {
@@ -129,7 +127,7 @@ fun FilterDialog(
                     events(SearchEvent.OnUpdateFilterDialogState(UIComponentState.Hide))
                     events(SearchEvent.Search())
                 }
-                Spacer_16dp()
+                Spacer16dp()
                 DefaultButton(modifier = Modifier.weight(1f), text = "Filter") {
                     events(SearchEvent.OnUpdateSelectedCategory(selectedCategories))
                     events(SearchEvent.OnUpdatePriceRange(selectedRange))
@@ -138,15 +136,13 @@ fun FilterDialog(
                         SearchEvent.Search(
                             minPrice = selectedRange.start.toInt(),
                             maxPrice = selectedRange.endInclusive.toInt(),
-                            categories = selectedCategories
-                        )
+                            categories = selectedCategories,
+                        ),
                     )
                 }
             }
 
-            Spacer_16dp()
+            Spacer16dp()
         }
-
     }
-
 }

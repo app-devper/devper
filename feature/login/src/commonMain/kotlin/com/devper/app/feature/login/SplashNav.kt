@@ -14,17 +14,20 @@ import com.devper.app.feature.navigation.SplashNavigation
 import org.koin.compose.koinInject
 
 @Composable
-fun SplashNav(viewModel: LoginViewModel = koinInject(), navigateToMain: () -> Unit) {
+fun SplashNav(
+    viewModel: LoginViewModel = koinInject(),
+    navigateToMain: () -> Unit,
+) {
     val navigator = rememberNavController()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
 
     NavHost(
         startDestination = SplashNavigation.Splash.route,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable(route = SplashNavigation.Splash.route) {
             SplashScreen(
@@ -34,7 +37,7 @@ fun SplashNav(viewModel: LoginViewModel = koinInject(), navigateToMain: () -> Un
                 navigateToLogin = {
                     navigator.popBackStack()
                     navigator.navigate(SplashNavigation.Login.route)
-                }
+                },
             )
         }
         composable(route = SplashNavigation.Login.route) {
@@ -58,5 +61,4 @@ fun SplashNav(viewModel: LoginViewModel = koinInject(), navigateToMain: () -> Un
             )
         }
     }
-
 }

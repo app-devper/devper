@@ -31,7 +31,6 @@ import com.devper.app.design.resources.no_wifi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-
 @Composable
 fun DefaultScreenUI(
     queue: Queue<UIComponent> = Queue(mutableListOf()),
@@ -46,22 +45,21 @@ fun DefaultScreenUI(
     onClickEndIconToolbar: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-
     Scaffold(
         topBar = {
             if (titleToolbar != null) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     if (startIconToolbar != null) {
                         CircleButton(
                             imageVector = startIconToolbar,
-                            onClick = { onClickStartIconToolbar() }
+                            onClick = { onClickStartIconToolbar() },
                         )
                     } else {
-                        Spacer_16dp()
+                        Spacer16dp()
                     }
 
                     Text(titleToolbar, style = MaterialTheme.typography.titleLarge)
@@ -69,20 +67,22 @@ fun DefaultScreenUI(
                     if (endIconToolbar != null) {
                         CircleButton(
                             imageVector = endIconToolbar,
-                            onClick = { onClickEndIconToolbar() }
+                            onClick = { onClickEndIconToolbar() },
                         )
                     } else {
-                        Spacer_16dp()
+                        Spacer16dp()
                     }
                 }
             }
-        }
+        },
     ) {
         Box(
-            modifier = Modifier.padding(top = it.calculateTopPadding())
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .padding(top = it.calculateTopPadding())
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.Center,
         ) {
             content()
 
@@ -101,7 +101,7 @@ fun DefaultScreenUI(
                         title = uiComponent.title,
                         snackbarVisibleState = true,
                         onDismiss = onRemoveHeadFromQueue,
-                        modifier = Modifier.align(Alignment.BottomCenter)
+                        modifier = Modifier.align(Alignment.BottomCenter),
                     )
                 }
             }
@@ -117,7 +117,6 @@ fun DefaultScreenUI(
             if (progressBarState is ProgressBarState.ScreenLoading || progressBarState is ProgressBarState.FullScreenLoading) {
                 CircularProgressIndicator()
             }
-
         }
     }
 }
@@ -126,30 +125,31 @@ fun DefaultScreenUI(
 @Composable
 fun FailedNetworkScreen(onTryAgain: () -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
-
         Image(painterResource(Res.drawable.no_wifi), null)
         Spacer(modifier = Modifier.size(32.dp))
         Text(
             text = "You are currently offline, please reconnect and try again.",
             style = MaterialTheme.typography.labelMedium,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.size(16.dp))
 
         DefaultButton(
             text = "Try Again",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(
-                    DEFAULT__BUTTON_SIZE
-                )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(
+                        DEFAULT__BUTTON_SIZE,
+                    ),
         ) {
             onTryAgain()
         }
@@ -159,33 +159,17 @@ fun FailedNetworkScreen(onTryAgain: () -> Unit) {
 @Composable
 fun LoadingWithLogoScreen() {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
     ) {
-
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
-
             CircularProgressIndicator()
-
         }
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

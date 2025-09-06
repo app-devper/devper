@@ -13,10 +13,10 @@ class LoginUseCase(
     dispatcher: Dispatcher,
     private val loginRepo: LoginRepository,
     private val session: SessionProvider,
-    private val host: HostProvider
+    private val host: HostProvider,
 ) : UseCase<LoginParam, Login>(dispatcher.io()) {
-    override suspend fun execute(param: LoginParam): Login {
-        return loginRepo.login(param).let {
+    override suspend fun execute(param: LoginParam): Login =
+        loginRepo.login(param).let {
             session.setAccessToken(it.accessToken)
             loginRepo.setAccessToken(it.accessToken)
             val system = loginRepo.getSystem()
@@ -24,5 +24,4 @@ class LoginUseCase(
             host.setSystem(system)
             it
         }
-    }
 }

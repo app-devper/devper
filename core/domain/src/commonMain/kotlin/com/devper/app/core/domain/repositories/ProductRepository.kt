@@ -1,18 +1,8 @@
 package com.devper.app.core.domain.repositories
 
-import com.devper.app.core.domain.model.product.CreateProductParam
 import com.devper.app.core.domain.model.product.Product
-import com.devper.app.core.domain.model.product.ProductPrice
-import com.devper.app.core.domain.model.product.ProductPriceParam
-import com.devper.app.core.domain.model.product.ProductStock
-import com.devper.app.core.domain.model.product.ProductStockParam
-import com.devper.app.core.domain.model.product.ProductUnit
-import com.devper.app.core.domain.model.product.ProductUnitParam
-import com.devper.app.core.domain.model.product.UpdateProductStockQuantityParam
-import com.devper.app.core.domain.model.product.UpdateProductStockSequenceParam
 
 interface ProductRepository {
-
     //    suspend fun getProductByBarcode(barcode: String): Product?
 //
     suspend fun getProductById(productId: String): Product

@@ -3,21 +3,17 @@ package com.devper.app.feature.main.product.viewmodel
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import business.domain.main.Category
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class ProductViewModel(
-
-) : ViewModel() {
-
+class ProductViewModel : ViewModel() {
     val state: MutableState<ProductState> = mutableStateOf(ProductState())
 
-    fun onTriggerEvent(event:ProductEvent) {
+    fun onTriggerEvent(event: ProductEvent) {
         when (event) {
-
             is ProductEvent.LikeProduct -> {
                 likeProduct(id = event.id)
             }
@@ -53,11 +49,9 @@ class ProductViewModel(
     }
 
     private fun likeProduct(id: Int) {
-
     }
 
     private fun getWishlist() {
-
     }
 
     private fun getNextPage() {
@@ -92,15 +86,11 @@ class ProductViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getWishlist()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

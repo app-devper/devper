@@ -18,23 +18,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.arrow_right
 import com.devper.app.design.resources.exit
+import com.devper.app.feature.main.settings.viewmodel.SettingsEvent
+import com.devper.app.feature.main.settings.viewmodel.SettingsState
 import org.jetbrains.compose.resources.painterResource
-import presentation.ui.main.settings.view_model.SettingsEvent
-import presentation.ui.main.settings.view_model.SettingsState
 
 @Composable
 fun SettingsScreen(
     state: SettingsState,
     events: (SettingsEvent) -> Unit,
     popup: () -> Unit,
-    logout: () -> Unit
+    logout: () -> Unit,
 ) {
     LaunchedEffect(key1 = state.logout) {
         if (state.logout) {
@@ -50,20 +50,20 @@ fun SettingsScreen(
         onTryAgain = { events(SettingsEvent.OnRetryNetwork) },
         titleToolbar = "Setting",
         startIconToolbar = Icons.AutoMirrored.Filled.ArrowBack,
-        onClickStartIconToolbar = popup
+        onClickStartIconToolbar = popup,
     ) {
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-
-            Spacer_32dp()
+            Spacer32dp()
 
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp)
-                    .noRippleClickable {
-                        events(SettingsEvent.Logout)
-                    },
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
+                        .noRippleClickable {
+                            events(SettingsEvent.Logout)
+                        },
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     painter = painterResource(Res.drawable.exit),
@@ -72,12 +72,12 @@ fun SettingsScreen(
                     modifier = Modifier.size(32.dp),
                 )
 
-                Spacer_8dp()
+                Spacer8dp()
 
                 Text(
                     "Logout",
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxWidth(.9f)
+                    modifier = Modifier.fillMaxWidth(.9f),
                 )
 
                 Icon(

@@ -1,24 +1,18 @@
-package presentation.ui.main.cart.view_model
+package com.devper.app.feature.main.cart.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class CartViewModel(
-
-) : ViewModel() {
-
-
+class CartViewModel : ViewModel() {
     val state: MutableState<CartState> = mutableStateOf(CartState())
-
 
     fun onTriggerEvent(event: CartEvent) {
         when (event) {
-
             is CartEvent.AddProduct -> {
                 addProduct(id = event.id)
             }
@@ -50,16 +44,12 @@ class CartViewModel(
     }
 
     private fun getCart() {
-
     }
 
     private fun deleteFromBasket(id: Int) {
-
     }
 
-
     private fun addProduct(id: Int) {
-
     }
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
@@ -85,15 +75,11 @@ class CartViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getCart()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

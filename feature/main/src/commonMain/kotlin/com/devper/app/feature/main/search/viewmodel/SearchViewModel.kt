@@ -3,23 +3,18 @@ package com.devper.app.feature.main.search.viewmodel
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import business.domain.main.Category
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
 import com.devper.app.core.design.state.UIComponentState
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class SearchViewModel(
-
-) : ViewModel() {
-
+class SearchViewModel : ViewModel() {
     val state: MutableState<SearchState> = mutableStateOf(SearchState())
-
 
     fun onTriggerEvent(event: SearchEvent) {
         when (event) {
-
             is SearchEvent.Search -> {
                 search(
                     minPrice = event.minPrice,
@@ -78,7 +73,6 @@ class SearchViewModel(
         getSearchFilter()
     }
 
-
     private fun onUpdateSelectedSort(value: Int) {
         state.value = state.value.copy(selectedSort = value)
     }
@@ -100,7 +94,6 @@ class SearchViewModel(
     }
 
     private fun getSearchFilter() {
-
     }
 
     private fun search(
@@ -118,7 +111,6 @@ class SearchViewModel(
 
     private fun getNextPage() {
         state.value = state.value.copy(page = state.value.page + 1)
-
     }
 
     private fun onUpdateSelectedCategory(categories: List<Category>) {
@@ -148,15 +140,11 @@ class SearchViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getSearchFilter()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

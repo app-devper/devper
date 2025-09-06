@@ -25,22 +25,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import business.domain.main.Notification
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.core.design.theme.grey_050
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.bell
+import com.devper.app.feature.main.notifications.viewmodel.NotificationsEvent
+import com.devper.app.feature.main.notifications.viewmodel.NotificationsState
 import org.jetbrains.compose.resources.painterResource
-import presentation.ui.main.notifications.view_model.NotificationsEvent
-import presentation.ui.main.notifications.view_model.NotificationsState
 
 @Composable
 fun NotificationsScreen(
     state: NotificationsState,
     events: (NotificationsEvent) -> Unit,
-    popup: () -> Unit
+    popup: () -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(NotificationsEvent.OnRemoveHeadFromQueue) },
@@ -49,10 +48,9 @@ fun NotificationsScreen(
         onTryAgain = { events(NotificationsEvent.OnRetryNetwork) },
         titleToolbar = "Notifications",
         startIconToolbar = Icons.AutoMirrored.Filled.ArrowBack,
-        onClickStartIconToolbar = popup
+        onClickStartIconToolbar = popup,
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-
             Text(
                 "Mark all as read",
                 style = MaterialTheme.typography.labelLarge,
@@ -65,42 +63,42 @@ fun NotificationsScreen(
                     NotificationBox(notification = it)
                 }
             }
-
         }
     }
 }
 
 @Composable
 fun NotificationBox(notification: Notification) {
-
     Column(
-        modifier = Modifier.fillMaxWidth()
-            .background(if (notification.isRead) MaterialTheme.colorScheme.background else grey_050)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(if (notification.isRead) MaterialTheme.colorScheme.background else grey_050),
     ) {
-
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-
             Box(
-                modifier = Modifier.background(
-                    MaterialTheme.colorScheme.primary.copy(.2f),
-                    CircleShape
-                ).size(75.dp),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .background(
+                            MaterialTheme.colorScheme.primary.copy(.2f),
+                            CircleShape,
+                        ).size(75.dp),
+                contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     painterResource(Res.drawable.bell),
                     null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(35.dp)
+                    modifier = Modifier.size(35.dp),
                 )
             }
             Column(
                 modifier = Modifier.fillMaxWidth(.9f),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(notification.title, style = MaterialTheme.typography.titleLarge)
                 Text(
@@ -109,13 +107,11 @@ fun NotificationBox(notification: Notification) {
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                 )
-
             }
 
             Text(notification.createAt, style = MaterialTheme.typography.labelMedium)
         }
-        Spacer_8dp()
+        Spacer8dp()
         HorizontalDivider(color = BorderColor)
     }
-
 }

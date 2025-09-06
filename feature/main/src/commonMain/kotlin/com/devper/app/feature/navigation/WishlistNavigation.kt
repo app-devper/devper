@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 data object Wishlist
 
 @Serializable
-data class WishlistDetail(val id: String)
+data class WishlistDetail(
+    val id: String,
+)

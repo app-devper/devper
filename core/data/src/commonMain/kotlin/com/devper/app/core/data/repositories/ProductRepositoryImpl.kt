@@ -8,11 +8,9 @@ import com.devper.app.core.domain.repositories.ProductRepository
 import com.devper.app.core.network.exception.NetworkException
 
 class ProductRepositoryImpl(
-    private val posNetwork: KtorPosNetwork
+    private val posNetwork: KtorPosNetwork,
 ) : ProductRepository {
-
     private var products: List<Product> = listOf()
-
 
     override suspend fun getProducts(): List<Product> {
         try {
@@ -25,15 +23,15 @@ class ProductRepositoryImpl(
         }
     }
 
-    override suspend fun getLocalProducts(): List<Product> {
-        return products.ifEmpty {
+    override suspend fun getLocalProducts(): List<Product> =
+        products.ifEmpty {
             getProducts()
         }
-    }
 
-    override suspend fun getProductById(productId: String): Product {
-        return products.firstOrNull { it.id == productId } ?: throw Exception("Product not found")
-    }
+    override suspend fun getProductById(productId: String): Product =
+        products.firstOrNull {
+            it.id == productId
+        } ?: throw Exception("Product not found")
 
 //    override suspend fun getProductById(productId: String): Product {
 //        val mapper = ProductMapper()

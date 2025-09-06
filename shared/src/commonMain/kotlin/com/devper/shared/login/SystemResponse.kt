@@ -14,5 +14,5 @@ data class SystemResponse(
     @SerialName("systemCode")
     val systemCode: String,
     @SerialName("host")
-    val host: String
+    val host: String,
 )

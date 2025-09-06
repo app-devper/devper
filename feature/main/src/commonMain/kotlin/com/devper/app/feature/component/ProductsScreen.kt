@@ -47,12 +47,11 @@ import com.devper.app.feature.component.viewmodel.ProductsViewModel
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 
-
 @Composable
 fun ProductsScreen(
     onSelected: (Product) -> Unit,
     onMenu: () -> Unit,
-    viewModel: ProductsViewModel
+    viewModel: ProductsViewModel,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var sortBalance by remember { mutableStateOf(false) }
@@ -65,9 +64,10 @@ fun ProductsScreen(
 
     Column {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             SearchTextField(
@@ -76,19 +76,19 @@ fun ProductsScreen(
                 onClearSearch = {
                     searchQuery = ""
                     viewModel.getProducts(searchQuery, sortBalance)
-                }
+                },
             )
             SortButton(
                 sortBalance = sortBalance,
                 onSortChange = {
                     sortBalance = !sortBalance
                     viewModel.getProducts(searchQuery, sortBalance)
-                }
+                },
             )
             if (isMobile()) {
                 IconButton(
                     onClick = onMenu,
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier.padding(start = 8.dp),
                 ) {
                     Icon(Icons.Default.Menu, contentDescription = "Menu")
                 }
@@ -98,7 +98,7 @@ fun ProductsScreen(
         ProductList(
             products = products,
             sortBalance = sortBalance,
-            onSelected = onSelected
+            onSelected = onSelected,
         )
     }
 }
@@ -107,18 +107,19 @@ fun ProductsScreen(
 fun SearchTextField(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
-    onClearSearch: () -> Unit
+    onClearSearch: () -> Unit,
 ) {
     TextField(
         value = searchQuery,
         onValueChange = onSearchQueryChange,
-        modifier = Modifier
-            .padding(8.dp),
+        modifier =
+            Modifier
+                .padding(8.dp),
         placeholder = { Text("ค้นหาสิ่งที่คุณต้องการ...") },
         leadingIcon = {
             Icon(
                 painterResource(Res.drawable.search),
-                contentDescription = "Search"
+                contentDescription = "Search",
             )
         },
         trailingIcon = {
@@ -128,9 +129,10 @@ fun SearchTextField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = {
-            onClearSearch()
-        }),
+        keyboardActions =
+            KeyboardActions(onSearch = {
+                onClearSearch()
+            }),
         colors = DefaultTextFieldTheme(),
         shape = MaterialTheme.shapes.small,
     )
@@ -139,7 +141,7 @@ fun SearchTextField(
 @Composable
 fun SortButton(
     sortBalance: Boolean,
-    onSortChange: () -> Unit
+    onSortChange: () -> Unit,
 ) {
     IconButton(onClick = onSortChange) {
         Icon(
@@ -154,10 +156,10 @@ fun SortButton(
 fun ProductList(
     products: List<Product>,
     sortBalance: Boolean,
-    onSelected: (Product) -> Unit
+    onSelected: (Product) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         items(products) { product ->
             Column {
@@ -169,7 +171,7 @@ fun ProductList(
                         Text(
                             text = getSubTitle(product, sortBalance),
                             fontSize = 14.sp,
-                            color = Color.Gray
+                            color = Color.Gray,
                         )
                     },
                     trailing = {
@@ -177,13 +179,14 @@ fun ProductList(
                             Icons.AutoMirrored.Filled.ArrowForwardIos,
                             contentDescription = "Select",
                             tint = Color.Gray,
-                            modifier = Modifier.size(16.dp)
+                            modifier = Modifier.size(16.dp),
                         )
                     },
-                    modifier = Modifier
-                        .clickable { onSelected(product) }
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
+                    modifier =
+                        Modifier
+                            .clickable { onSelected(product) }
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
                 )
                 Divider()
             }
@@ -191,13 +194,15 @@ fun ProductList(
     }
 }
 
-fun getSubTitle(product: Product, sortBalance: Boolean): String {
-    return if (sortBalance) {
+fun getSubTitle(
+    product: Product,
+    sortBalance: Boolean,
+): String =
+    if (sortBalance) {
         "คงเหลือ ${product.getQuantity()} ${if (product.units.isNotEmpty()) product.units.first().unit else ""}"
     } else {
         if (product.units.isNotEmpty()) product.units.first().unit else ""
     }
-}
 
 fun isMobile(): Boolean {
     // Logic to determine if the device is mobile
@@ -209,6 +214,6 @@ fun PreviewProductsScreen() {
     ProductsScreen(
         viewModel = koinInject(),
         onSelected = {},
-        onMenu = {}
+        onMenu = {},
     )
 }

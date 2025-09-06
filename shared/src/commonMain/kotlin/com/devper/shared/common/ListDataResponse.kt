@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ListDataResponse<T>(
     @SerialName("data")
-    val data: List<T>
+    val data: List<T>,
 )

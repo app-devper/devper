@@ -1,6 +1,5 @@
 package com.devper.app.core.design.component
 
-
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -18,13 +17,13 @@ import androidx.compose.ui.graphics.Color
 fun MultiStateAnimationCircleFilledCanvas(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
-    radiusEnd: Float = 900f
+    radiusEnd: Float = 900f,
 ) {
     val transition = rememberInfiniteTransition()
     val floatAnim by transition.animateFloat(
         initialValue = 700f,
         targetValue = radiusEnd,
-        animationSpec = infiniteRepeatable(tween(1500), RepeatMode.Reverse)
+        animationSpec = infiniteRepeatable(tween(1500), RepeatMode.Reverse),
     )
 
     Canvas(modifier = modifier) {

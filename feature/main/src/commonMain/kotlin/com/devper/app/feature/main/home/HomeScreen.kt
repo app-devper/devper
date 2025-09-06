@@ -47,19 +47,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.devper.app.core.domain.constants.Sort
 import business.domain.main.Category
 import com.devper.app.core.design.component.AppImage
 import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_4dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer4dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
 import com.devper.app.core.design.component.rememberCustomImagePainter
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.core.design.theme.PagerDotColor
+import com.devper.app.core.domain.constants.Sort
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.bell
 import com.devper.app.design.resources.category
@@ -72,12 +72,11 @@ import com.devper.app.design.resources.see_all
 import com.devper.app.design.resources.setting
 import com.devper.app.design.resources.special_for_you
 import com.devper.app.feature.component.ProductBox
+import com.devper.app.feature.main.home.viewmodel.HomeEvent
+import com.devper.app.feature.main.home.viewmodel.HomeState
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import com.devper.app.feature.main.home.viewmodel.HomeEvent
-import com.devper.app.feature.main.home.viewmodel.HomeState
-
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
@@ -90,7 +89,6 @@ fun HomeScreen(
     navigateToCategories: () -> Unit = {},
     navigateToSearch: (Int?, Int?) -> Unit = { _, _ -> },
 ) {
-
     val pagerState = rememberPagerState { state.home.banners.size }
 
     DefaultScreenUI(
@@ -98,34 +96,33 @@ fun HomeScreen(
         onRemoveHeadFromQueue = { events(HomeEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(HomeEvent.OnRetryNetwork) }
+        onTryAgain = { events(HomeEvent.OnRetryNetwork) },
     ) {
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
             ) {
-
-                Spacer_8dp()
+                Spacer8dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Column {
                         Text(
                             stringResource(Res.string.location),
                             style = MaterialTheme.typography.labelSmall,
                         )
-                        Spacer_4dp()
+                        Spacer4dp()
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
+                            horizontalArrangement = Arrangement.Center,
                         ) {
                             Icon(
                                 painterResource(Res.drawable.location),
                                 null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                             Text(
                                 state.home.address.getLocation(),
@@ -134,128 +131,138 @@ fun HomeScreen(
                             Icon(
                                 Icons.Filled.KeyboardArrowDown,
                                 null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
                             )
-
                         }
                     }
                     Box(
-                        modifier = Modifier.background(
-                            MaterialTheme.colorScheme.primary.copy(.2f),
-                            CircleShape
-                        ).size(45.dp).noRippleClickable { navigateToNotifications() },
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.primary.copy(.2f),
+                                    CircleShape,
+                                ).size(45.dp)
+                                .noRippleClickable { navigateToNotifications() },
+                        contentAlignment = Alignment.Center,
                     ) {
                         Icon(
                             painterResource(Res.drawable.bell),
                             null,
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = MaterialTheme.colorScheme.primary,
                         )
                     }
                 }
 
-                Spacer_32dp()
+                Spacer32dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth(.8f).height(DEFAULT__BUTTON_SIZE)
-                            .border(1.dp, BorderColor, MaterialTheme.shapes.small)
-                            .noRippleClickable { navigateToSearch(null, null) }
+                        modifier =
+                            Modifier
+                                .fillMaxWidth(.8f)
+                                .height(DEFAULT__BUTTON_SIZE)
+                                .border(1.dp, BorderColor, MaterialTheme.shapes.small)
+                                .noRippleClickable { navigateToSearch(null, null) },
                     ) {
                         Row(
                             modifier = Modifier.fillMaxSize().padding(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Start
+                            horizontalArrangement = Arrangement.Start,
                         ) {
                             Icon(
                                 painterResource(Res.drawable.search),
                                 null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
                             )
-                            Spacer_4dp()
+                            Spacer4dp()
                             Text(
                                 stringResource(Res.string.search),
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
                             )
                         }
                     }
                     Box(
-                        modifier = Modifier.fillMaxWidth().height(DEFAULT__BUTTON_SIZE)
-                            .background(
-                                MaterialTheme.colorScheme.primary,
-                                MaterialTheme.shapes.small
-                            ).noRippleClickable { navigateToSetting() },
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(DEFAULT__BUTTON_SIZE)
+                                .background(
+                                    MaterialTheme.colorScheme.primary,
+                                    MaterialTheme.shapes.small,
+                                ).noRippleClickable { navigateToSetting() },
+                        contentAlignment = Alignment.Center,
                     ) {
                         Icon(
                             painterResource(Res.drawable.setting),
                             null,
-                            tint = MaterialTheme.colorScheme.background
+                            tint = MaterialTheme.colorScheme.background,
                         )
                     }
                 }
-
-
             }
 
             Column(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
-
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+                    horizontalArrangement = Arrangement.Start,
                 ) {
                     Text(
                         stringResource(Res.string.special_for_you),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                 }
 
                 HorizontalPager(
                     state = pagerState,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) { page ->
-                    BannerImage(state.home.banners.getOrNull(page)?.banner ?: "")
+                    BannerImage(
+                        state.home.banners
+                            .getOrNull(page)
+                            ?.banner ?: "",
+                    )
                 }
 
-                Spacer_8dp()
+                Spacer8dp()
 
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     DotsIndicator(
                         totalDots = state.home.banners.size,
                         selectedIndex = pagerState.currentPage,
-                        dotSize = 8.dp
+                        dotSize = 8.dp,
                     )
                 }
 
-                Spacer_16dp()
+                Spacer16dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         stringResource(Res.string.category),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                     Text(
                         stringResource(Res.string.see_all),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.noRippleClickable {
-                            navigateToCategories()
-                        }
+                        modifier =
+                            Modifier.noRippleClickable {
+                                navigateToCategories()
+                            },
                     )
                 }
 
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(8.dp)
+                    contentPadding = PaddingValues(8.dp),
                 ) {
                     items(state.home.categories, key = { it.id }) {
                         CategoryBox(category = it) {
@@ -264,20 +271,20 @@ fun HomeScreen(
                     }
                 }
 
-                Spacer_16dp()
+                Spacer16dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+                    horizontalArrangement = Arrangement.Start,
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         Text(
                             stringResource(Res.string.flash_sale),
-                            style = MaterialTheme.typography.titleLarge
+                            style = MaterialTheme.typography.titleLarge,
                         )
                         TimerBox(state = state)
                     }
@@ -294,31 +301,31 @@ fun HomeScreen(
                     }
                 }
 
-                Spacer_16dp()
+                Spacer16dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         stringResource(Res.string.most_sale),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                     Text(
                         stringResource(Res.string.see_all),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.noRippleClickable {
-                            navigateToSearch(null, Sort.MOST_SALE)
-                        }
+                        modifier =
+                            Modifier.noRippleClickable {
+                                navigateToSearch(null, Sort.MOST_SALE)
+                            },
                     )
                 }
 
-
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(8.dp)
+                    contentPadding = PaddingValues(8.dp),
                 ) {
                     items(state.home.mostSale, key = { it.id }) {
                         ProductBox(product = it, onLikeClick = {
@@ -327,30 +334,31 @@ fun HomeScreen(
                     }
                 }
 
-                Spacer_16dp()
+                Spacer16dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         stringResource(Res.string.newest_products),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                     Text(
                         stringResource(Res.string.see_all),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.noRippleClickable {
-                            navigateToSearch(null, Sort.NEWEST)
-                        }
+                        modifier =
+                            Modifier.noRippleClickable {
+                                navigateToSearch(null, Sort.NEWEST)
+                            },
                     )
                 }
 
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(8.dp)
+                    contentPadding = PaddingValues(8.dp),
                 ) {
                     items(state.home.newestProduct, key = { it.id }) {
                         ProductBox(product = it, onLikeClick = {
@@ -358,104 +366,110 @@ fun HomeScreen(
                         }) { navigateToDetail(it.id) }
                     }
                 }
-
             }
         }
     }
 }
-
 
 @Composable
 fun TimerBox(state: HomeState) {
     Row(
         modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(2.dp)
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Box(
-            modifier = Modifier.background(
-                MaterialTheme.colorScheme.primary.copy(alpha = .2f),
-                MaterialTheme.shapes.small
-            )
-                .padding(4.dp)
+            modifier =
+                Modifier
+                    .background(
+                        MaterialTheme.colorScheme.primary.copy(alpha = .2f),
+                        MaterialTheme.shapes.small,
+                    ).padding(4.dp),
         ) {
             Text(
                 state.time.hour.toString(),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
         }
         Text(
             ":",
             color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelMedium,
         )
         Box(
-            modifier = Modifier.background(
-                MaterialTheme.colorScheme.primary.copy(alpha = .2f),
-                MaterialTheme.shapes.small
-            )
-                .padding(4.dp)
+            modifier =
+                Modifier
+                    .background(
+                        MaterialTheme.colorScheme.primary.copy(alpha = .2f),
+                        MaterialTheme.shapes.small,
+                    ).padding(4.dp),
         ) {
             Text(
                 state.time.minute.toString(),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
         }
         Text(
             ":",
             color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelMedium,
         )
 
         Box(
-            modifier = Modifier.background(
-                MaterialTheme.colorScheme.primary.copy(alpha = .2f),
-                MaterialTheme.shapes.small
-            )
-                .padding(4.dp)
+            modifier =
+                Modifier
+                    .background(
+                        MaterialTheme.colorScheme.primary.copy(alpha = .2f),
+                        MaterialTheme.shapes.small,
+                    ).padding(4.dp),
         ) {
             Text(
                 state.time.second.toString(),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
         }
     }
-
 }
 
 @Composable
-private fun CategoryBox(category: Category, onCategoryClick: () -> Unit) {
+private fun CategoryBox(
+    category: Category,
+    onCategoryClick: () -> Unit,
+) {
     Box(modifier = Modifier.padding(horizontal = 8.dp)) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.width(75.dp).noRippleClickable {
-                onCategoryClick()
-            }
+            modifier =
+                Modifier.width(75.dp).noRippleClickable {
+                    onCategoryClick()
+                },
         ) {
             Box(
-                modifier = Modifier.background(
-                    MaterialTheme.colorScheme.primary.copy(.2f),
-                    CircleShape
-                ).size(60.dp)
-                    .padding(12.dp)
+                modifier =
+                    Modifier
+                        .background(
+                            MaterialTheme.colorScheme.primary.copy(.2f),
+                            CircleShape,
+                        ).size(60.dp)
+                        .padding(12.dp),
             ) {
                 AppImage(
                     imageUrl = category.icon,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize().size(55.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
                 )
             }
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 category.name,
                 style = MaterialTheme.typography.labelMedium,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -467,7 +481,7 @@ fun BannerImage(it: String) {
         Card(
             modifier = Modifier.height(160.dp).fillMaxWidth(),
             shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation(8.dp)
+            elevation = CardDefaults.cardElevation(8.dp),
         ) {
             Image(
                 painter = rememberCustomImagePainter(it),
@@ -479,7 +493,6 @@ fun BannerImage(it: String) {
     }
 }
 
-
 @Composable
 fun DotsIndicator(
     modifier: Modifier = Modifier,
@@ -487,30 +500,28 @@ fun DotsIndicator(
     selectedIndex: Int,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     unSelectedColor: Color = PagerDotColor,
-    dotSize: Dp = 8.dp
+    dotSize: Dp = 8.dp,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
-
         for (index in 0 until totalDots) {
-
             val color by remember(selectedIndex) { derivedStateOf { Animatable(unSelectedColor) } }
             val size by animateDpAsState(if (index == selectedIndex) 20.dp else dotSize)
 
             LaunchedEffect(selectedIndex) {
                 color.animateTo(
                     if (index == selectedIndex) selectedColor else unSelectedColor,
-                    animationSpec = tween(300)
+                    animationSpec = tween(300),
                 )
             }
 
             Row(
                 modifier = Modifier,
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
                 Dot(size = size, color = color.value, shape = RoundedCornerShape(16.dp))
             }
@@ -518,20 +529,20 @@ fun DotsIndicator(
     }
 }
 
-
 @Composable
 private fun Dot(
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
     size: Dp = 8.dp,
-    color: Color
+    color: Color,
 ) {
     Box(
-        modifier = modifier
-            .padding(horizontal = 3.dp)
-            .height(8.dp)
-            .width(size)
-            .clip(shape)
-            .background(color)
+        modifier =
+            modifier
+                .padding(horizontal = 3.dp)
+                .height(8.dp)
+                .width(size)
+                .clip(shape)
+                .background(color),
     )
 }

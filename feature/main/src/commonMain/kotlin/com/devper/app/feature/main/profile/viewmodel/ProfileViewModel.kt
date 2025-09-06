@@ -2,25 +2,23 @@ package com.devper.app.feature.main.profile.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.domain.usecases.GetUserInfoUseCase
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val getUserInfoUseCase: GetUserInfoUseCase
+    private val getUserInfoUseCase: GetUserInfoUseCase,
 ) : ViewModel() {
-
     val state: MutableState<ProfileState> = mutableStateOf(ProfileState())
 
     fun onTriggerEvent(event: ProfileEvent) {
         when (event) {
-
             is ProfileEvent.OnRemoveHeadFromQueue -> {
                 removeHeadMessage()
             }
@@ -50,16 +48,18 @@ class ProfileViewModel(
             result.fold(
                 onSuccess = { userInfo ->
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
-                    state.value = state.value.copy(
-                        profile = ProfileView(
-                            name = userInfo.firstName,
-                            profileUrl = "https://www.w3schools.com/w3images/avatar2.png"
+                    state.value =
+                        state.value.copy(
+                            profile =
+                                ProfileView(
+                                    name = userInfo.firstName,
+                                    profileUrl = "https://www.w3schools.com/w3images/avatar2.png",
+                                ),
                         )
-                    )
                 },
                 onFailure = { error ->
                     state.value = state.value.copy(progressBarState = ProgressBarState.Idle)
-                }
+                },
             )
         }
     }
@@ -94,5 +94,4 @@ class ProfileViewModel(
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
 }

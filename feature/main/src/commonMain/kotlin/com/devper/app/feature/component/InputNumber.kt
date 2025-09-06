@@ -1,26 +1,36 @@
 package com.devper.app.feature.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Backspace
-import androidx.compose.material.icons.filled.Backspace
-import androidx.compose.runtime.*
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.*
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -35,15 +45,15 @@ fun InputNumber(
     isShowDot: Boolean = true,
 ) {
     var number by remember { mutableStateOf("") }
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
 
     fun input(num: String) {
         if (number == "0" && num != ".") return
         if (number.contains(".")) {
             val split = number.split(".")
             if (split[1].length == maxDigit || num == ".") return
-        } else if (number.length == maxLength && num != ".") return
+        } else if (number.length == maxLength && num != ".") {
+            return
+        }
         number += num
         onChange(number)
     }
@@ -76,15 +86,16 @@ fun InputNumber(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .onKeyEvent { keyEvent ->
-                handleKey(keyEvent)
-                true
-            },
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .onKeyEvent { keyEvent ->
+                    handleKey(keyEvent)
+                    true
+                },
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         DividerLine()
         NumberRow("1", "2", "3", onClick = { input(it) })
@@ -96,7 +107,7 @@ fun InputNumber(
         SpecialRow(
             isShowDot = isShowDot,
             onInput = { input(it) },
-            onDelete = { delete() }
+            onDelete = { delete() },
         )
         DividerLine()
     }
@@ -107,11 +118,11 @@ fun NumberRow(
     num1: String,
     num2: String,
     num3: String,
-    onClick: (String) -> Unit
+    onClick: (String) -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         NumberButton(num1, onClick)
         NumberButton(num2, onClick)
@@ -123,11 +134,11 @@ fun NumberRow(
 fun SpecialRow(
     isShowDot: Boolean,
     onInput: (String) -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         if (isShowDot) {
             NumberButton(".", onInput)
@@ -139,11 +150,11 @@ fun SpecialRow(
             modifier = Modifier.size(56.dp),
             onClick = {
                 onDelete()
-            }
+            },
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.Backspace,
-                contentDescription = "Backspace"
+                contentDescription = "Backspace",
             )
         }
     }
@@ -152,26 +163,26 @@ fun SpecialRow(
 @Composable
 fun NumberButton(
     number: String,
-    onClick: (String) -> Unit
+    onClick: (String) -> Unit,
 ) {
     TextButton(
         onClick = { onClick(number) },
-        modifier = Modifier.size(56.dp)
+        modifier = Modifier.size(56.dp),
     ) {
         Text(
             text = number,
             fontSize = 24.sp,
-            color = Color.Black
+            color = Color.Black,
         )
     }
 }
 
 @Composable
 fun DividerLine() {
-    Divider(
-        color = Color.Gray,
-        thickness = 1.dp,
-        modifier = Modifier.fillMaxWidth()
+    HorizontalDivider(
+        Modifier.fillMaxWidth(),
+        1.dp,
+        Color.Gray,
     )
 }
 
@@ -183,6 +194,6 @@ fun PreviewInputNumber() {
         onDone = { println("Final value: $it") },
         maxLength = 7,
         maxDigit = 2,
-        isShowDot = true
+        isShowDot = true,
     )
 }

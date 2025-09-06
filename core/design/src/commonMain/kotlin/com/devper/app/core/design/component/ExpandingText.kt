@@ -11,9 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.TextLayoutResult
-
+import androidx.compose.ui.text.TextStyle
 
 private const val MINIMIZED_MAX_LINES = 2
 
@@ -22,7 +21,7 @@ fun ExpandingText(
     modifier: Modifier = Modifier,
     text: String,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
-    onExpandedChange: (Boolean) -> Unit
+    onExpandedChange: (Boolean) -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
@@ -43,10 +42,11 @@ fun ExpandingText(
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(MINIMIZED_MAX_LINES - 1)
                 val showMoreString = "... $endOfTitle"
-                val adjustedText = text
-                    .substring(startIndex = 0, endIndex = lastCharIndex)
-                    .dropLast(showMoreString.length)
-                    .dropLastWhile { it == ' ' || it == '.' }
+                val adjustedText =
+                    text
+                        .substring(startIndex = 0, endIndex = lastCharIndex)
+                        .dropLast(showMoreString.length)
+                        .dropLastWhile { it == ' ' || it == '.' }
 
                 finalText.value = "$adjustedText$showMoreString"
 
@@ -60,11 +60,11 @@ fun ExpandingText(
         maxLines = if (isExpanded) Int.MAX_VALUE else MINIMIZED_MAX_LINES,
         style = style,
         onTextLayout = { textLayoutResultState.value = it },
-        modifier = modifier
-            .clickable(enabled = isClickable) {
-                isExpanded = !isExpanded
-                onExpandedChange(isExpanded)
-            }
-            .animateContentSize(),
+        modifier =
+            modifier
+                .clickable(enabled = isClickable) {
+                    isExpanded = !isExpanded
+                    onExpandedChange(isExpanded)
+                }.animateContentSize(),
     )
 }

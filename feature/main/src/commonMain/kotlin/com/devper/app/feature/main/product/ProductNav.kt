@@ -10,8 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.devper.app.feature.main.detail.ProductDetailScreen
 import com.devper.app.feature.main.product.viewmodel.ProductViewModel
-import com.devper.app.feature.main.product_detail.viewmodel.ProductDetailEvent
-import com.devper.app.feature.main.product_detail.viewmodel.ProductDetailViewModel
+import com.devper.app.feature.main.productdetail.viewmodel.ProductDetailEvent
+import com.devper.app.feature.main.productdetail.viewmodel.ProductDetailViewModel
 import com.devper.app.feature.main.wishlist.ProductScreen
 import com.devper.app.feature.navigation.Product
 import com.devper.app.feature.navigation.ProductDetail
@@ -23,13 +23,13 @@ fun ProductNav() {
     NavHost(
         startDestination = Product,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<Product> {
             val viewModel: ProductViewModel = koinInject()
             ProductScreen(
                 state = viewModel.state.value,
-                events = viewModel::onTriggerEvent
+                events = viewModel::onTriggerEvent,
             ) {
                 navigator.navigate(ProductDetail(it))
             }

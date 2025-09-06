@@ -12,6 +12,6 @@ data object Checkout
 data object Address
 
 @Serializable
-data class CartDetail(val id: String)
-
-
+data class CartDetail(
+    val id: String,
+)

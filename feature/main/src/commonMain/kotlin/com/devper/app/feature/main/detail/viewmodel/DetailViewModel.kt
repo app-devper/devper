@@ -2,25 +2,17 @@ package com.devper.app.feature.main.detail.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
-
 import androidx.lifecycle.ViewModel
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
-import presentation.ui.main.detail.view_model.DetailEvent
-import presentation.ui.main.detail.view_model.DetailState
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-
-class DetailViewModel(
-
-) : ViewModel() {
-
+class DetailViewModel : ViewModel() {
     val state: MutableState<DetailState> = mutableStateOf(DetailState())
 
     fun onTriggerEvent(event: DetailEvent) {
         when (event) {
-
             is DetailEvent.Like -> {
                 likeProduct(id = event.id)
             }
@@ -59,23 +51,16 @@ class DetailViewModel(
         state.value = state.value.copy(selectedImage = value)
     }
 
-
     private fun likeProduct(id: Int) {
-
     }
-
 
     private fun addBasket(id: Int) {
-
     }
 
-
     private fun updateLike() {
-
     }
 
     private fun getProduct(id: String) {
-
     }
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
@@ -102,12 +87,13 @@ class DetailViewModel(
     }
 
     private fun onRetryNetwork() {
-        getProduct(state.value.product.id.toString())
+        getProduct(
+            state.value.product.id
+                .toString(),
+        )
     }
 
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

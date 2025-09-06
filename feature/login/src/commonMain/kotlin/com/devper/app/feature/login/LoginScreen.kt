@@ -29,6 +29,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE_EXTRA
+import com.devper.app.core.design.component.DefaultButton
+import com.devper.app.core.design.component.DefaultScreenUI
+import com.devper.app.core.design.component.PasswordTextField
+import com.devper.app.core.design.component.SimpleImageButton
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer4dp
+import com.devper.app.core.design.component.Spacer8dp
+import com.devper.app.core.design.theme.DefaultTextFieldTheme
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.apple
 import com.devper.app.design.resources.dont_have_an_account
@@ -43,20 +53,10 @@ import com.devper.app.design.resources.password
 import com.devper.app.design.resources.sign_in
 import com.devper.app.design.resources.sign_up
 import com.devper.app.design.resources.welcome_title
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.stringResource
-import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE_EXTRA
-import com.devper.app.core.design.component.DefaultButton
-import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.PasswordTextField
-import com.devper.app.core.design.component.SimpleImageButton
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_4dp
-import com.devper.app.core.design.component.Spacer_8dp
-import com.devper.app.core.design.theme.DefaultTextFieldTheme
 import com.devper.app.feature.login.viewmodel.LoginEvent
 import com.devper.app.feature.login.viewmodel.LoginState
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -64,9 +64,8 @@ fun LoginScreen(
     state: LoginState,
     events: (LoginEvent) -> Unit,
     navigateToMain: () -> Unit,
-    navigateToRegister: () -> Unit
+    navigateToRegister: () -> Unit,
 ) {
-
     LaunchedEffect(state.navigateToMain) {
         if (state.navigateToMain) {
             navigateToMain()
@@ -83,29 +82,29 @@ fun LoginScreen(
         onRemoveHeadFromQueue = {
             events(LoginEvent.OnRemoveHeadFromQueue)
         },
-        progressBarState = state.progressBarState
+        progressBarState = state.progressBarState,
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 stringResource(Res.string.sign_in),
-                style = MaterialTheme.typography.displaySmall
+                style = MaterialTheme.typography.displaySmall,
             )
-            Spacer_16dp()
+            Spacer16dp()
             Text(
                 stringResource(Res.string.welcome_title),
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
-            Spacer_32dp()
+            Spacer32dp()
 
             Column(
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(stringResource(Res.string.email))
-                Spacer_4dp()
+                Spacer4dp()
                 TextField(
                     value = state.usernameLogin,
                     onValueChange = {
@@ -118,24 +117,25 @@ fun LoginScreen(
                     colors = DefaultTextFieldTheme(),
                     shape = MaterialTheme.shapes.small,
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email,
-                    ),
+                    keyboardOptions =
+                        KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Email,
+                        ),
                 )
 
                 AnimatedVisibility(visible = isUsernameError) {
                     Text(
                         stringResource(Res.string.enter_valid_email),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
+                        color = MaterialTheme.colorScheme.error,
                     )
                 }
 
-                Spacer_8dp()
+                Spacer8dp()
 
                 Text(stringResource(Res.string.password))
-                Spacer_4dp()
+                Spacer4dp()
                 PasswordTextField(
                     value = state.passwordLogin,
                     onValueChange = {
@@ -149,91 +149,91 @@ fun LoginScreen(
                     Text(
                         stringResource(Res.string.enter_valid_password),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
+                        color = MaterialTheme.colorScheme.error,
                     )
                 }
             }
 
-            Spacer_8dp()
+            Spacer8dp()
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
             ) {
                 Text(
                     stringResource(Res.string.forget_password),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary,
-                    textDecoration = TextDecoration.Underline
+                    textDecoration = TextDecoration.Underline,
                 )
             }
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 DefaultButton(
                     progressBarState = state.progressBarState,
                     text = stringResource(Res.string.sign_in),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(DEFAULT__BUTTON_SIZE_EXTRA),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(DEFAULT__BUTTON_SIZE_EXTRA),
                     onClick = {
                         keyboardController?.hide()
                         events(LoginEvent.Login)
-                    }
+                    },
                 )
 
                 Spacer(Modifier.height(32.dp))
             }
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier =
+                    Modifier
+                        .fillMaxWidth(),
             ) {
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     HorizontalDivider(modifier = Modifier.width(75.dp))
                     Text(text = stringResource(Res.string.or_sign_in_with))
                     HorizontalDivider(modifier = Modifier.width(75.dp))
                 }
-                Spacer_32dp()
+                Spacer32dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     SimpleImageButton(Res.drawable.facebook)
                     SimpleImageButton(Res.drawable.apple)
                     SimpleImageButton(Res.drawable.google)
                 }
-
             }
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(Res.string.dont_have_an_account),
                 )
-                Spacer_4dp()
+                Spacer4dp()
                 Text(
-                    modifier = Modifier.clickable {
-                        navigateToRegister()
-                    },
+                    modifier =
+                        Modifier.clickable {
+                            navigateToRegister()
+                        },
                     text = stringResource(Res.string.sign_up),
                     color = MaterialTheme.colorScheme.primary,
-                    textDecoration = TextDecoration.Underline
+                    textDecoration = TextDecoration.Underline,
                 )
             }
-
         }
     }
 }

@@ -6,29 +6,29 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.devper.app.feature.main.address.AddressScreen
+import com.devper.app.feature.main.address.viewmodel.AddressViewModel
+import com.devper.app.feature.main.editprofile.EditProfileScreen
+import com.devper.app.feature.main.editprofile.viewmodel.EditProfileViewModel
+import com.devper.app.feature.main.mycoupons.MyCouponsScreen
+import com.devper.app.feature.main.mycoupons.viewmodel.MyCouponsViewModel
+import com.devper.app.feature.main.myorders.MyOrdersScreen
+import com.devper.app.feature.main.myorders.viewmodel.MyOrdersViewModel
+import com.devper.app.feature.main.paymentmethod.PaymentMethodScreen
+import com.devper.app.feature.main.paymentmethod.viewmodel.PaymentMethodViewModel
+import com.devper.app.feature.main.profile.viewmodel.ProfileViewModel
+import com.devper.app.feature.main.settings.viewmodel.SettingsViewModel
 import com.devper.app.feature.navigation.ProfileNavigation
 import org.koin.compose.koinInject
-import com.devper.app.feature.main.address.AddressScreen
-import presentation.ui.main.address.view_model.AddressViewModel
-import com.devper.app.feature.main.edit_profile.EditProfileScreen
-import com.devper.app.feature.main.edit_profile.viewmodel.EditProfileViewModel
-import com.devper.app.feature.main.my_coupons.MyCouponsScreen
-import presentation.ui.main.my_coupons.view_model.MyCouponsViewModel
-import presentation.ui.main.my_orders.MyOrdersScreen
-import presentation.ui.main.my_orders.view_model.MyOrdersViewModel
-import com.devper.app.feature.main.payment_method.PaymentMethodScreen
-import presentation.ui.main.payment_method.view_model.PaymentMethodViewModel
-import com.devper.app.feature.main.profile.viewmodel.ProfileViewModel
 import presentation.ui.main.settings.SettingsScreen
-import com.devper.app.feature.main.settings.viewmodel.SettingsViewModel
 
 @Composable
 fun ProfileNav(logout: () -> Unit) {
     val navigator = rememberNavController()
-    NavHost( 
+    NavHost(
         startDestination = ProfileNavigation.Profile.route,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable(route = ProfileNavigation.Profile.route) {
             val viewModel: ProfileViewModel = koinInject()
@@ -125,6 +125,3 @@ fun ProfileNav(logout: () -> Unit) {
         }
     }
 }
-
-
-

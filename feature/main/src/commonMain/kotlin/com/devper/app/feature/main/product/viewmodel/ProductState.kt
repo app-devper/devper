@@ -14,7 +14,6 @@ data class ProductState(
     val hasNextPage: Boolean = true,
     val wishlist: Wishlist = Wishlist(),
     val selectedCategory: Category = categoryAll,
-
     val progressBarState: ProgressBarState = ProgressBarState.Idle,
     val networkState: NetworkState = NetworkState.Good,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),

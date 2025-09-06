@@ -13,12 +13,13 @@ import com.devper.app.design.resources.loading
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ProgressLoading(modifier: Modifier = Modifier){
+fun ProgressLoading(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .testTag(stringResource(Res.string.loading)),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .fillMaxSize()
+                .testTag(stringResource(Res.string.loading)),
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
             color = MaterialTheme.colorScheme.onSurface,

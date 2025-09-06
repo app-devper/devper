@@ -7,11 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import org.koin.compose.koinInject
 import com.devper.app.feature.main.detail.DetailNav
 import com.devper.app.feature.main.wishlist.viewmodel.WishlistViewModel
 import com.devper.app.feature.navigation.Wishlist
 import com.devper.app.feature.navigation.WishlistDetail
+import org.koin.compose.koinInject
 
 @Composable
 fun WishlistNav() {
@@ -19,13 +19,13 @@ fun WishlistNav() {
     NavHost(
         startDestination = Wishlist,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<Wishlist> {
             val viewModel: WishlistViewModel = koinInject()
             WishlistScreen(
                 state = viewModel.state.value,
-                events = viewModel::onTriggerEvent
+                events = viewModel::onTriggerEvent,
             ) {
                 navigator.popBackStack()
                 navigator.navigate(WishlistDetail(it))

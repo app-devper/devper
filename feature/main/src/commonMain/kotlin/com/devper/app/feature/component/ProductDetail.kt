@@ -41,7 +41,7 @@ fun ProductDetailWidget(
     product: Product,
     onBack: () -> Unit,
     onEdit: () -> Unit,
-    onClickEdit: () -> Unit
+    onClickEdit: () -> Unit,
 ) {
     Column {
         TopTitleBar(title = product.name, onBack = onBack, action = "แก้ไข", onAction = onClickEdit)
@@ -52,7 +52,10 @@ fun ProductDetailWidget(
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun TabView(product: Product, onEdit: () -> Unit) {
+fun TabView(
+    product: Product,
+    onEdit: () -> Unit,
+) {
     val tabs = listOf("ข้อมูลทั่วไป", "หน่วยนับ", "ราคา", "สต็อก", "ประวัติ")
     val pagerState = rememberPagerState(pageCount = { tabs.size })
 
@@ -63,9 +66,9 @@ fun TabView(product: Product, onEdit: () -> Unit) {
             selectedTabIndex = pagerState.currentPage,
             indicator = { tabPositions ->
                 TabRowDefaults.SecondaryIndicator(
-                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
+                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 )
-            }
+            },
         ) {
             tabs.forEachIndexed { index, title ->
                 Tab(
@@ -75,7 +78,7 @@ fun TabView(product: Product, onEdit: () -> Unit) {
                             pagerState.animateScrollToPage(index)
                         }
                     },
-                    text = { Text(title) }
+                    text = { Text(title) },
                 )
             }
         }
@@ -83,7 +86,7 @@ fun TabView(product: Product, onEdit: () -> Unit) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.weight(1f),
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.Top,
         ) { page ->
             when (page) {
                 0 -> ProductInfoTab(product = product)
@@ -103,7 +106,7 @@ fun ProductInfoTab(product: Product) {
 
     Card(
         shape = RoundedCornerShape(10.dp),
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier.padding(8.dp),
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             ListItem(title = "ประเภทสินค้า", subtitle = product.category)
@@ -117,13 +120,18 @@ fun ProductInfoTab(product: Product) {
 }
 
 @Composable
-fun ListItem(title: String, subtitle: String, color: Color = Color.Black) {
+fun ListItem(
+    title: String,
+    subtitle: String,
+    color: Color = Color.Black,
+) {
     Column {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         ) {
             Text(text = title, fontSize = 16.sp, color = Color.Black)
             Text(text = subtitle, fontSize = 16.sp, color = color)
@@ -133,17 +141,20 @@ fun ListItem(title: String, subtitle: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun UnitsTab(product: Product, onEdit: () -> Unit) {
+fun UnitsTab(
+    product: Product,
+    onEdit: () -> Unit,
+) {
     Column(modifier = Modifier.padding(8.dp)) {
         product.units.forEach { unit ->
             Card(
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(vertical = 4.dp),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(text = unit.unit, fontSize = 24.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.weight(1f))
@@ -155,7 +166,7 @@ fun UnitsTab(product: Product, onEdit: () -> Unit) {
                     HorizontalDivider(thickness = 1.dp, color = Color.Gray)
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Column(horizontalAlignment = Alignment.Start) {
                             Text(text = "ขนาดบรรจุ", fontSize = 14.sp, color = Color.Gray)
@@ -177,18 +188,21 @@ fun UnitsTab(product: Product, onEdit: () -> Unit) {
 }
 
 @Composable
-fun PricesTab(product: Product, onEdit: () -> Unit) {
+fun PricesTab(
+    product: Product,
+    onEdit: () -> Unit,
+) {
     Column(modifier = Modifier.padding(8.dp)) {
         product.units.forEach { unit ->
             val prices = product.getProductPricesByUnitId(unit.id)
             Card(
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(vertical = 4.dp),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(text = unit.unit, fontSize = 24.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.weight(1f))
@@ -201,7 +215,7 @@ fun PricesTab(product: Product, onEdit: () -> Unit) {
                     prices.forEach { price ->
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Column {
                                 Text(text = "ผูกกับประเภทลูกค้า", fontSize = 14.sp, color = Color.Gray)
@@ -217,19 +231,22 @@ fun PricesTab(product: Product, onEdit: () -> Unit) {
 }
 
 @Composable
-fun StocksTab(product: Product, onEdit: () -> Unit) {
+fun StocksTab(
+    product: Product,
+    onEdit: () -> Unit,
+) {
     Column(modifier = Modifier.padding(8.dp)) {
         product.units.forEach { unit ->
             val stock = product.getProductStocksByUnitId(unit.id)
             val total = stock.sumOf { it.quantity }
             Card(
                 shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(vertical = 4.dp),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(text = unit.unit, fontSize = 24.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.weight(1f))
@@ -242,7 +259,7 @@ fun StocksTab(product: Product, onEdit: () -> Unit) {
                     stock.forEach { s ->
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Column {
                                 Text(text = "นำเข้าเมื่อ", fontSize = 14.sp, color = Color.Gray)

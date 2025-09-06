@@ -13,27 +13,30 @@ class AppLogger(
     }
 
     companion object Factory {
-        fun buildDebug(tag: String): AppLogger {
-            return AppLogger(
+        fun buildDebug(tag: String): AppLogger =
+            AppLogger(
                 tag = tag,
-                isDebug = true
+                isDebug = true,
             )
-        }
 
-        fun buildRelease(tag: String): AppLogger {
-            return AppLogger(
+        fun buildRelease(tag: String): AppLogger =
+            AppLogger(
                 tag = tag,
-                isDebug = false
+                isDebug = false,
             )
-        }
     }
-
 }
 
-fun printLogD(tag: String, msg: String) {
+fun printLogD(
+    tag: String,
+    msg: String,
+) {
     Logger.d(msg, null, tag)
 }
 
-fun printLogI(tag: String, msg: String) {
+fun printLogI(
+    tag: String,
+    msg: String,
+) {
     Logger.i(msg, null, tag)
 }

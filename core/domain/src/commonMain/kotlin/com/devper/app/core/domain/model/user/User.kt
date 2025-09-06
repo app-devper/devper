@@ -12,5 +12,5 @@ data class User(
     val createdBy: String,
     val createdDate: String,
     val updatedBy: String,
-    val updatedDate: String
+    val updatedDate: String,
 )

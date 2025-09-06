@@ -9,25 +9,24 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 enum class WindowSize {
     COMPACT,
     MEDIUM,
-    EXPANDED;
+    EXPANDED,
+    ;
 
     // Factory method that creates an instance of the class based on window width
     companion object {
-        fun basedOnWidth(windowWidth: Dp): WindowSize {
-            return when {
+        fun basedOnWidth(windowWidth: Dp): WindowSize =
+            when {
                 windowWidth < 600.dp -> COMPACT
                 windowWidth < 840.dp -> MEDIUM
                 else -> EXPANDED
             }
-        }
     }
 }
-
 
 @Composable
 fun Responsive(
     mobile: @Composable () -> Unit,
-    desktop: @Composable () -> Unit
+    desktop: @Composable () -> Unit,
 ) {
     val isCompact = LocalWindowSize.current == WindowSize.COMPACT
 
@@ -42,11 +41,11 @@ fun Responsive(
 @Composable
 fun PreviewResponsive() {
     Responsive(
-        mobile = { 
-            /* Your mobile content goes here */
+        mobile = {
+            // Your mobile content goes here
         },
-        desktop = { 
-            /* Your desktop content goes here */
-        }
+        desktop = {
+            // Your desktop content goes here
+        },
     )
 }

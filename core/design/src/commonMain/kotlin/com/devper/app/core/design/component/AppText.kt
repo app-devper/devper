@@ -14,13 +14,15 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun TextWithIcon(text: String, icon: DrawableResource) {
+fun TextWithIcon(
+    text: String,
+    icon: DrawableResource,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Icon(painter = painterResource(icon), null, modifier = Modifier.size(24.dp))
         Text(text = text, style = MaterialTheme.typography.bodySmall)

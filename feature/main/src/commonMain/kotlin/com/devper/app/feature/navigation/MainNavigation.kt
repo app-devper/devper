@@ -19,41 +19,38 @@ sealed class MainNavigation(
     val selectedIcon: DrawableResource,
     val unSelectedIcon: DrawableResource,
 ) {
-
     data object Home : MainNavigation(
         route = "home",
         title = "Home",
         selectedIcon = Res.drawable.home,
-        unSelectedIcon = Res.drawable.home_border
+        unSelectedIcon = Res.drawable.home_border,
     )
 
     data object Wishlist : MainNavigation(
         route = "wishlist",
         title = "Wishlist",
         selectedIcon = Res.drawable.heart2,
-        unSelectedIcon = Res.drawable.heart_border2
+        unSelectedIcon = Res.drawable.heart_border2,
     )
 
     data object Product : MainNavigation(
         route = "product",
         title = "Product",
         selectedIcon = Res.drawable.heart2,
-        unSelectedIcon = Res.drawable.heart_border2
+        unSelectedIcon = Res.drawable.heart_border2,
     )
 
     data object Cart : MainNavigation(
         route = "cart",
         title = "Cart",
         selectedIcon = Res.drawable.cart,
-        unSelectedIcon = Res.drawable.cart_border
+        unSelectedIcon = Res.drawable.cart_border,
     )
 
     data object Profile : MainNavigation(
         route = "profile",
         title = "Profile",
         selectedIcon = Res.drawable.profile,
-        unSelectedIcon = Res.drawable.profile_border
+        unSelectedIcon = Res.drawable.profile_border,
     )
-
 }
-

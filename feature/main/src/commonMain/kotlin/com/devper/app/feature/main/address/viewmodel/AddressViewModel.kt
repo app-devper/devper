@@ -1,31 +1,26 @@
-package presentation.ui.main.address.view_model
+package com.devper.app.feature.main.address.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.devper.app.core.domain.constants.CUSTOM_TAG
-
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
 import com.devper.app.core.design.state.UIComponentState
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class AddressViewModel(
-
-) : ViewModel() {
-
+class AddressViewModel : ViewModel() {
     val state: MutableState<AddressState> = mutableStateOf(AddressState())
 
     fun onTriggerEvent(event: AddressEvent) {
         when (event) {
-
             is AddressEvent.AddAddress -> {
                 addAddress(
                     country = event.country,
                     address = event.address,
                     city = event.city,
                     state = event.state,
-                    zipCode = event.zipCode
+                    zipCode = event.zipCode,
                 )
             }
 
@@ -55,7 +50,6 @@ class AddressViewModel(
         getAddresses()
     }
 
-
     private fun addAddress(
         country: String,
         address: String,
@@ -63,11 +57,9 @@ class AddressViewModel(
         state: String,
         zipCode: String,
     ) {
-
     }
 
     private fun getAddresses() {
-
     }
 
     private fun onUpdateAddAddressDialogState(value: UIComponentState) {
@@ -101,10 +93,7 @@ class AddressViewModel(
         getAddresses()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

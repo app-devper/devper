@@ -6,9 +6,7 @@ class AppSession : SessionProvider {
     private var _accessToken: String? = null
     private var _clientId: String = ""
 
-    override fun getAccessToken(): String? {
-        return _accessToken
-    }
+    override fun getAccessToken(): String? = _accessToken
 
     override fun setAccessToken(accessToken: String) {
         _accessToken = accessToken
@@ -18,9 +16,7 @@ class AppSession : SessionProvider {
         _clientId = clientId
     }
 
-    override fun getClientId(): String {
-        return _clientId
-    }
+    override fun getClientId(): String = _clientId
 
     override fun clear() {
         _accessToken = null

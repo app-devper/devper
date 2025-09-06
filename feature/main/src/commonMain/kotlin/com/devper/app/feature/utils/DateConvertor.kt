@@ -31,6 +31,3 @@ fun String.convertDate(): String {
         return ""
     }
 }
-
-
-

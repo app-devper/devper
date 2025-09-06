@@ -25,10 +25,10 @@ import androidx.compose.ui.unit.dp
 import business.domain.main.Category
 import coil3.compose.rememberAsyncImagePainter
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
-import presentation.ui.main.categories.view_model.CategoriesEvent
-import presentation.ui.main.categories.view_model.CategoriesState
+import com.devper.app.feature.main.categories.viewmodel.CategoriesEvent
+import com.devper.app.feature.main.categories.viewmodel.CategoriesState
 
 @Composable
 fun CategoriesScreen(
@@ -37,22 +37,20 @@ fun CategoriesScreen(
     popup: () -> Unit,
     navigateToSearch: (Int) -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(CategoriesEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(CategoriesEvent.OnRetryNetwork)},
+        onTryAgain = { events(CategoriesEvent.OnRetryNetwork) },
         titleToolbar = "Categories",
         startIconToolbar = Icons.AutoMirrored.Filled.ArrowBack,
-        onClickStartIconToolbar = popup
+        onClickStartIconToolbar = popup,
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
-                modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
+                modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
             ) {
                 items(state.categories, key = { it.id }) {
                     CategoryBox(it, modifier = Modifier.weight(1f)) {
@@ -60,43 +58,47 @@ fun CategoriesScreen(
                     }
                 }
             }
-
         }
     }
 }
 
-
 @Composable
-private fun CategoryBox(category: Category, modifier: Modifier, onCategoryClick: () -> Unit) {
+private fun CategoryBox(
+    category: Category,
+    modifier: Modifier,
+    onCategoryClick: () -> Unit,
+) {
     Box(modifier = modifier.padding(8.dp), contentAlignment = Alignment.Center) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.noRippleClickable {
-                onCategoryClick()
-            }
+            modifier =
+                Modifier.noRippleClickable {
+                    onCategoryClick()
+                },
         ) {
             Box(
-                modifier = Modifier.background(
-                    MaterialTheme.colorScheme.primary.copy(.2f),
-                    CircleShape
-                ).size(80.dp)
-                    .padding(12.dp)
+                modifier =
+                    Modifier
+                        .background(
+                            MaterialTheme.colorScheme.primary.copy(.2f),
+                            CircleShape,
+                        ).size(80.dp)
+                        .padding(12.dp),
             ) {
-
                 Image(
                     painter = rememberAsyncImagePainter(category.icon),
                     null,
                     modifier = Modifier.fillMaxSize().size(65.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
                 )
             }
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 category.name,
                 style = MaterialTheme.typography.labelLarge,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }

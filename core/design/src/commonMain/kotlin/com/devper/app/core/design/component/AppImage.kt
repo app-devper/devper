@@ -10,8 +10,7 @@ fun AppImage(
     modifier: Modifier = Modifier,
     imageUrl: String,
     contentDescription: String? = null,
-    contentScale: ContentScale = ContentScale.Crop
-
+    contentScale: ContentScale = ContentScale.Crop,
 ) {
     AsyncImage(
         model = imageUrl,

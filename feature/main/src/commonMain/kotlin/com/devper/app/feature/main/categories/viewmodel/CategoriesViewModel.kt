@@ -1,23 +1,18 @@
-package presentation.ui.main.categories.view_model
+package com.devper.app.feature.main.categories.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import androidx.lifecycle.ViewModel
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class CategoriesViewModel(
-
-) : ViewModel() {
-
+class CategoriesViewModel : ViewModel() {
     val state: MutableState<CategoriesState> = mutableStateOf(CategoriesState())
-
 
     fun onTriggerEvent(event: CategoriesEvent) {
         when (event) {
-
             is CategoriesEvent.OnRemoveHeadFromQueue -> {
                 removeHeadMessage()
             }
@@ -40,11 +35,8 @@ class CategoriesViewModel(
         getCategories()
     }
 
-
     private fun getCategories() {
-
     }
-
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
         if (uiComponent is UIComponent.None) {
@@ -69,15 +61,11 @@ class CategoriesViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getCategories()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

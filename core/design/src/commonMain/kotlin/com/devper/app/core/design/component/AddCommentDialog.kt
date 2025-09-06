@@ -29,40 +29,41 @@ import androidx.compose.ui.unit.dp
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.core.design.theme.DefaultTextFieldTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddCommentDialog(onDismissRequest: () -> Unit, onExecute: (Double, String) -> Unit) {
-
+fun AddCommentDialog(
+    onDismissRequest: () -> Unit,
+    onExecute: (Double, String) -> Unit,
+) {
     var comment by remember { mutableStateOf("") }
     var rate by remember { mutableStateOf(5.0) }
 
-
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
-        modifier = Modifier
-            .fillMaxWidth(0.9f).background(MaterialTheme.colorScheme.background).padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth(0.9f)
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
-
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(
                 "Add",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Text(
                 "Rate:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
             Slider(
@@ -70,59 +71,57 @@ fun AddCommentDialog(onDismissRequest: () -> Unit, onExecute: (Double, String) -
                 onValueChange = { rate = it.toDouble() },
                 valueRange = 0f..5f,
                 steps = 4,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     "0",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
                     "5",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
 
-            Spacer_16dp()
-
+            Spacer16dp()
 
             Text(
                 "Comment:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
             TextField(
-                modifier = Modifier
-                    .height(120.dp)
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = comment, onValueChange = { comment = it },
+                modifier =
+                    Modifier
+                        .height(120.dp)
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = comment,
+                onValueChange = { comment = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Default,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Default,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
 
-
-            Spacer_32dp()
+            Spacer32dp()
 
             DefaultButton(modifier = Modifier.fillMaxWidth(), text = "Submit") {
                 onExecute(rate, comment)
                 onDismissRequest()
             }
 
-            Spacer_16dp()
+            Spacer16dp()
         }
-
     }
-
-
 }

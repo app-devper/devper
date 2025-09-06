@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RijksmuseumFilterChip(
@@ -36,39 +35,43 @@ fun RijksmuseumFilterChip(
         },
         modifier = modifier,
         enabled = enabled,
-        leadingIcon = if (selected) {
-            {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                )
-            }
-        } else {
-            null
-        },
-        shape = CircleShape,
-        border = FilterChipDefaults.filterChipBorder(
-            borderColor = MaterialTheme.colorScheme.onBackground,
-            selectedBorderColor = MaterialTheme.colorScheme.onBackground,
-            disabledBorderColor = MaterialTheme.colorScheme.onBackground,
-            disabledSelectedBorderColor = MaterialTheme.colorScheme.onBackground,
-            selectedBorderWidth = AgvChipDefaults.ChipBorderWidth,
-            enabled = enabled,
-            selected = selected,
-        ),
-        colors = FilterChipDefaults.filterChipColors(
-            labelColor = MaterialTheme.colorScheme.onBackground,
-            iconColor = MaterialTheme.colorScheme.onBackground,
-            disabledContainerColor = if (selected) {
-                MaterialTheme.colorScheme.onBackground
+        leadingIcon =
+            if (selected) {
+                {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = null,
+                    )
+                }
             } else {
-                Color.Transparent
+                null
             },
-            disabledLabelColor = MaterialTheme.colorScheme.onBackground,
-            selectedContainerColor = MaterialTheme.colorScheme.onSecondary,
-            selectedLabelColor = MaterialTheme.colorScheme.onBackground,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.onBackground,
-        ),
+        shape = CircleShape,
+        border =
+            FilterChipDefaults.filterChipBorder(
+                borderColor = MaterialTheme.colorScheme.onBackground,
+                selectedBorderColor = MaterialTheme.colorScheme.onBackground,
+                disabledBorderColor = MaterialTheme.colorScheme.onBackground,
+                disabledSelectedBorderColor = MaterialTheme.colorScheme.onBackground,
+                selectedBorderWidth = AgvChipDefaults.ChipBorderWidth,
+                enabled = enabled,
+                selected = selected,
+            ),
+        colors =
+            FilterChipDefaults.filterChipColors(
+                labelColor = MaterialTheme.colorScheme.onBackground,
+                iconColor = MaterialTheme.colorScheme.onBackground,
+                disabledContainerColor =
+                    if (selected) {
+                        MaterialTheme.colorScheme.onBackground
+                    } else {
+                        Color.Transparent
+                    },
+                disabledLabelColor = MaterialTheme.colorScheme.onBackground,
+                selectedContainerColor = MaterialTheme.colorScheme.onSecondary,
+                selectedLabelColor = MaterialTheme.colorScheme.onBackground,
+                selectedLeadingIconColor = MaterialTheme.colorScheme.onBackground,
+            ),
     )
 }
 

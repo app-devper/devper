@@ -1,29 +1,34 @@
-package presentation.ui.main.detail.view_model
+package com.devper.app.feature.main.detail.viewmodel
 
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.UIComponent
 
 sealed class DetailEvent {
+    data class Like(
+        val id: Int,
+    ) : DetailEvent()
 
-    data class Like(val id: Int) : DetailEvent()
-    data class AddBasket(val id: Int) : DetailEvent()
+    data class AddBasket(
+        val id: Int,
+    ) : DetailEvent()
 
     data class OnUpdateSelectedImage(
-        val value: String
+        val value: String,
     ) : DetailEvent()
 
     data class GetProduct(
-        val id: String
+        val id: String,
     ) : DetailEvent()
 
     data object OnRemoveHeadFromQueue : DetailEvent()
 
     data class Error(
-        val uiComponent: UIComponent
+        val uiComponent: UIComponent,
     ) : DetailEvent()
 
     data object OnRetryNetwork : DetailEvent()
+
     data class OnUpdateNetworkState(
-        val networkState: NetworkState
+        val networkState: NetworkState,
     ) : DetailEvent()
 }

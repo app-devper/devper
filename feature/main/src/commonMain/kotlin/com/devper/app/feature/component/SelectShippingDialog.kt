@@ -23,52 +23,51 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-
 import business.domain.main.ShippingType
-import com.devper.app.core.design.state.UIComponentState
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
+import com.devper.app.core.design.state.UIComponentState
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.shipping
+import com.devper.app.feature.main.checkout.viewmodel.CheckoutEvent
+import com.devper.app.feature.main.checkout.viewmodel.CheckoutState
+import com.devper.app.feature.main.checkout.viewmodel.shippingType_global
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-import presentation.ui.main.checkout.view_model.CheckoutEvent
-import presentation.ui.main.checkout.view_model.CheckoutState
-import presentation.ui.main.checkout.view_model.shippingType_global
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectShippingDialog(state: CheckoutState, events: (CheckoutEvent) -> Unit) {
-
+fun SelectShippingDialog(
+    state: CheckoutState,
+    events: (CheckoutEvent) -> Unit,
+) {
     val shippingList = mutableStateOf(shippingType_global)
 
     BasicAlertDialog(
         onDismissRequest = {
             events(CheckoutEvent.OnUpdateSelectShippingDialogState(UIComponentState.Hide))
         },
-        modifier = Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.background)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
         ) {
-
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(
                 "Choose Shipping",
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
 
-            Spacer_32dp()
+            Spacer32dp()
 
             LazyColumn {
                 items(shippingList.value) {
@@ -77,50 +76,47 @@ fun SelectShippingDialog(state: CheckoutState, events: (CheckoutEvent) -> Unit) 
                     }
                 }
             }
-
         }
     }
 }
-
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ShippingBox(
     shippingType: ShippingType,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-
         Row(modifier = Modifier.fillMaxWidth().noRippleClickable { onClick() }) {
             Icon(
                 painter = painterResource(Res.drawable.shipping),
                 null,
                 modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.primary,
             )
-            Spacer_8dp()
+            Spacer8dp()
             Column(modifier = Modifier.fillMaxWidth(.7f)) {
                 Text(shippingType.title, style = MaterialTheme.typography.titleMedium)
                 Text(
                     shippingType.getEstimatedDay(),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
-            Spacer_8dp()
+            Spacer8dp()
 
             Row(
                 modifier = Modifier.fillMaxHeight(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text("$ ${shippingType.price}")
                 Checkbox(isSelected, onCheckedChange = { onClick() })
             }
 
-            Spacer_8dp()
+            Spacer8dp()
             HorizontalDivider(color = BorderColor)
-            Spacer_8dp()
+            Spacer8dp()
         }
     }
 }

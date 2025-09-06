@@ -8,9 +8,8 @@ import com.devper.app.core.domain.repositories.UserRepository
 import com.devper.app.core.network.exception.NetworkException
 
 class UserRepositoryImpl(
-    private val umNetwork: KtorUmNetwork
+    private val umNetwork: KtorUmNetwork,
 ) : UserRepository {
-
     override suspend fun getUserInfo(): User {
         try {
             umNetwork.getUserInfo().let {
@@ -20,5 +19,4 @@ class UserRepositoryImpl(
             throw e.toHttpException()
         }
     }
-
 }

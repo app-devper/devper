@@ -11,15 +11,20 @@ import androidx.compose.ui.unit.dp
 import business.domain.main.Category
 
 @Composable
-fun CategoryChipsBox(category: Category, isSelected: Boolean, onClick: () -> Unit) {
+fun CategoryChipsBox(
+    category: Category,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+) {
     Card(
         onClick = onClick,
         modifier = Modifier.padding(4.dp),
         shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-            contentColor = if (isSelected) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onBackground
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                contentColor = if (isSelected) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onBackground,
+            ),
     ) {
         Text(category.name, modifier = Modifier.padding(12.dp))
     }

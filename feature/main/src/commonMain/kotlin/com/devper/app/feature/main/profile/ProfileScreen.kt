@@ -19,16 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.devper.app.core.design.component.CircleImage
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_12dp
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer12dp
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer8dp
 import com.devper.app.core.design.component.noRippleClickable
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
-import com.devper.app.feature.main.profile.viewmodel.ProfileEvent
-import com.devper.app.feature.main.profile.viewmodel.ProfileState
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.arrow_right
 import com.devper.app.design.resources.coupon
@@ -38,6 +33,11 @@ import com.devper.app.design.resources.payment
 import com.devper.app.design.resources.profile2
 import com.devper.app.design.resources.setting2
 import com.devper.app.design.resources.warning
+import com.devper.app.feature.main.profile.viewmodel.ProfileEvent
+import com.devper.app.feature.main.profile.viewmodel.ProfileState
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -52,35 +52,33 @@ fun ProfileScreen(
     navigateToMyWallet: () -> Unit,
     navigateToSettings: () -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(ProfileEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(ProfileEvent.OnRetryNetwork) }
+        onTryAgain = { events(ProfileEvent.OnRetryNetwork) },
     ) {
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
-            Spacer_16dp()
+            Spacer16dp()
 
             Text("Profile", style = MaterialTheme.typography.titleLarge)
 
-            Spacer_16dp()
+            Spacer16dp()
 
             CircleImage(
                 image = state.profile.profileUrl,
-                modifier = Modifier.size(120.dp)
+                modifier = Modifier.size(120.dp),
             )
 
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(state.profile.name, style = MaterialTheme.typography.headlineMedium)
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Column(modifier = Modifier.fillMaxWidth()) {
                 ProfileItemBox(title = "Edit Profile", image = Res.drawable.profile2) {
@@ -88,41 +86,40 @@ fun ProfileScreen(
                 }
                 ProfileItemBox(
                     title = "Manage Address",
-                    image = Res.drawable.location2
+                    image = Res.drawable.location2,
                 ) {
                     navigateToAddress()
                 }
                 ProfileItemBox(
                     title = "Payment Methods",
-                    image = Res.drawable.payment
+                    image = Res.drawable.payment,
                 ) {
                     navigateToPaymentMethod()
                 }
                 ProfileItemBox(
                     title = "My Orders",
-                    image = Res.drawable.order
+                    image = Res.drawable.order,
                 ) {
                     navigateToMyOrders()
                 }
                 ProfileItemBox(
                     title = "My Coupons",
-                    image = Res.drawable.coupon
+                    image = Res.drawable.coupon,
                 ) {
                     navigateToMyCoupons()
                 }
                 ProfileItemBox(
                     title = "Settings",
-                    image = Res.drawable.setting2
+                    image = Res.drawable.setting2,
                 ) {
                     navigateToSettings()
                 }
                 ProfileItemBox(
                     title = "Help Center",
                     image = Res.drawable.warning,
-                    isLastItem = true
+                    isLastItem = true,
                 ) {}
             }
-
         }
     }
 }
@@ -133,16 +130,19 @@ private fun ProfileItemBox(
     title: String,
     image: DrawableResource,
     isLastItem: Boolean = false,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
-            .noRippleClickable { onClick() }) {
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .noRippleClickable { onClick() },
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -151,9 +151,9 @@ private fun ProfileItemBox(
                     painterResource(image),
                     null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(35.dp)
+                    modifier = Modifier.size(35.dp),
                 )
-                Spacer_8dp()
+                Spacer8dp()
                 Text(title, style = MaterialTheme.typography.bodyLarge)
             }
 
@@ -161,15 +161,14 @@ private fun ProfileItemBox(
                 painterResource(Res.drawable.arrow_right),
                 null,
                 tint = MaterialTheme.colorScheme.primary.copy(alpha = .7f),
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(30.dp),
             )
         }
 
         if (!isLastItem) {
-            Spacer_12dp()
+            Spacer12dp()
             HorizontalDivider()
-            Spacer_12dp()
+            Spacer12dp()
         }
     }
-
 }

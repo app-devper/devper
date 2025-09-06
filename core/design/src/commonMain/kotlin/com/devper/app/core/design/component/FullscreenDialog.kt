@@ -7,7 +7,12 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
@@ -25,19 +30,21 @@ private const val DIALOG_BUILD_TIME = 50L
 @Composable
 internal fun AnimatedModalBottomSheetTransition(
     visible: Boolean,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = slideInVertically(
-            animationSpec = tween(ANIMATION_TIME.toInt()),
-            initialOffsetY = { fullHeight -> fullHeight }
-        ),
-        exit = slideOutVertically(
-            animationSpec = tween(ANIMATION_TIME.toInt()),
-            targetOffsetY = { fullHeight -> fullHeight }
-        ),
-        content = content
+        enter =
+            slideInVertically(
+                animationSpec = tween(ANIMATION_TIME.toInt()),
+                initialOffsetY = { fullHeight -> fullHeight },
+            ),
+        exit =
+            slideOutVertically(
+                animationSpec = tween(ANIMATION_TIME.toInt()),
+                targetOffsetY = { fullHeight -> fullHeight },
+            ),
+        content = content,
     )
 }
 
@@ -46,7 +53,7 @@ internal fun AnimatedModalBottomSheetTransition(
 fun FullscreenDialog(
     onDismissRequest: () -> Unit,
     dismissOnBackPress: Boolean = true,
-    content: @Composable (ModalTransitionDialogHelper) -> Unit
+    content: @Composable (ModalTransitionDialogHelper) -> Unit,
 ) {
     val onCloseSharedFlow: MutableSharedFlow<Unit> = remember { MutableSharedFlow() }
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -70,11 +77,12 @@ fun FullscreenDialog(
                 startDismissWithExitAnimation(animateContentBackTrigger, onDismissRequest)
             }
         },
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false,
-            dismissOnBackPress = dismissOnBackPress,
-            dismissOnClickOutside = false
-        )
+        properties =
+            DialogProperties(
+                usePlatformDefaultWidth = false,
+                dismissOnBackPress = dismissOnBackPress,
+                dismissOnClickOutside = false,
+            ),
     ) {
         Box(Modifier.fillMaxSize()) {
             AnimatedModalBottomSheetTransition(visible = animateContentBackTrigger.value) {
@@ -86,7 +94,7 @@ fun FullscreenDialog(
 
 private suspend fun startDismissWithExitAnimation(
     animateContentBackTrigger: MutableState<Boolean>,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     animateContentBackTrigger.value = false
     delay(ANIMATION_TIME)
@@ -95,7 +103,7 @@ private suspend fun startDismissWithExitAnimation(
 
 class ModalTransitionDialogHelper(
     private val coroutineScope: CoroutineScope,
-    private val onCloseFlow: MutableSharedFlow<Unit>
+    private val onCloseFlow: MutableSharedFlow<Unit>,
 ) {
     fun triggerAnimatedClose() {
         coroutineScope.launch {

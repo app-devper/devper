@@ -11,10 +11,15 @@ dependencies {
     compileOnly(libs.plugins.jetbrainsCompose.toDep())
     compileOnly(libs.plugins.kotlinMultiplatform.toDep())
     compileOnly(libs.plugins.compose.compiler.toDep())
+    compileOnly(libs.plugins.ktlint.toKtLintDep())
 }
 
 fun Provider<PluginDependency>.toDep() = map {
     "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}"
+}
+
+fun Provider<PluginDependency>.toKtLintDep() = map {
+    "org.jlleitschuh.gradle:ktlint-gradle:${it.version}"
 }
 
 tasks {

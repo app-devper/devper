@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data object Categories
 
 @Serializable
-data class CategoriesSearch(val categoryId: Int)
-
-
+data class CategoriesSearch(
+    val categoryId: Int,
+)

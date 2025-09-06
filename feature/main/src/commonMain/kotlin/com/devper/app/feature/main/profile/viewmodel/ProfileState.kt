@@ -7,7 +7,6 @@ import com.devper.app.core.design.state.UIComponent
 
 data class ProfileState(
     val profile: ProfileView = ProfileView(),
-
     val progressBarState: ProgressBarState = ProgressBarState.Idle,
     val networkState: NetworkState = NetworkState.Good,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),

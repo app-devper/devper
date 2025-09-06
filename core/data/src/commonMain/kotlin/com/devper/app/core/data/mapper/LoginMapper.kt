@@ -7,23 +7,26 @@ import com.devper.shared.login.LoginRequest
 import com.devper.shared.login.LoginResponse
 import com.devper.shared.login.SystemResponse
 
-
-fun LoginParam.toLoginRequest(): LoginRequest = LoginRequest(
-    body = LoginRequest.Body(
-        username = username,
-        password = password,
-        system = system
+fun LoginParam.toLoginRequest(): LoginRequest =
+    LoginRequest(
+        body =
+            LoginRequest.Body(
+                username = username,
+                password = password,
+                system = system,
+            ),
     )
-)
 
-fun LoginResponse.toLogin(): Login = Login(
-    accessToken = accessToken
-)
+fun LoginResponse.toLogin(): Login =
+    Login(
+        accessToken = accessToken,
+    )
 
-fun SystemResponse.toSystem(): System = System(
-    id = id,
-    systemName = systemName,
-    systemCode = systemCode,
-    clientId = clientId,
-    host = host
-)
+fun SystemResponse.toSystem(): System =
+    System(
+        id = id,
+        systemName = systemName,
+        systemCode = systemCode,
+        clientId = clientId,
+        host = host,
+    )

@@ -11,18 +11,21 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class ProductsViewModel(
-    private val getProductsUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetProductsUseCase,
 ) : ViewModel() {
-
     private var _products = MutableStateFlow(listOf<Product>())
-    val products: StateFlow<List<Product>> = _products
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = listOf()
-        )
+    val products: StateFlow<List<Product>> =
+        _products
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = listOf(),
+            )
 
-    fun getProducts(text: String, sortBalance: Boolean) {
+    fun getProducts(
+        text: String,
+        sortBalance: Boolean,
+    ) {
         viewModelScope.launch {
             val result = getProductsUseCase(Unit)
             result.fold(
@@ -31,12 +34,16 @@ class ProductsViewModel(
                 },
                 onFailure = { error ->
                     // Handle error if needed
-                }
+                },
             )
         }
     }
 
-    private fun onListProducts(text: String, data: List<Product>, sortBalance: Boolean) {
+    private fun onListProducts(
+        text: String,
+        data: List<Product>,
+        sortBalance: Boolean,
+    ) {
         val items = mutableListOf<Product>()
         items.addAll(data)
         val result = searchProduct(text, items)
@@ -47,7 +54,10 @@ class ProductsViewModel(
         }
     }
 
-    private fun searchProduct(param: String, data: List<Product>): List<Product> {
+    private fun searchProduct(
+        param: String,
+        data: List<Product>,
+    ): List<Product> {
         if (param.isEmpty()) {
             return data
         } else {
@@ -60,5 +70,4 @@ class ProductsViewModel(
             return filtered
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package com.devper.app.feature.main.search
 
-
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,20 +9,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import business.domain.main.Category
-import org.koin.compose.koinInject
 import com.devper.app.feature.main.detail.DetailNav
 import com.devper.app.feature.main.search.viewmodel.SearchEvent
 import com.devper.app.feature.main.search.viewmodel.SearchViewModel
 import com.devper.app.feature.navigation.Search
 import com.devper.app.feature.navigation.SearchDetail
+import org.koin.compose.koinInject
 
 @Composable
-fun SearchNav(categoryId: Int?, sort: Int?, popUp: () -> Unit) {
+fun SearchNav(
+    categoryId: Int?,
+    sort: Int?,
+    popUp: () -> Unit,
+) {
     val navigator = rememberNavController()
     NavHost(
         startDestination = Search,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<Search> {
             val viewModel: SearchViewModel = koinInject()
@@ -43,7 +46,7 @@ fun SearchNav(categoryId: Int?, sort: Int?, popUp: () -> Unit) {
                     navigator.popBackStack()
                     navigator.navigate(SearchDetail(it))
                 },
-                popUp = { popUp() }
+                popUp = { popUp() },
             )
         }
         composable<SearchDetail> { backStackEntry ->

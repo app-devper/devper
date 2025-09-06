@@ -17,11 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.devper.app.core.domain.constants.PAGINATION_PAGE_SIZE
-import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.Spacer_8dp
+import com.devper.app.core.design.component.Spacer8dp
+import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.theme.BorderColor
+import com.devper.app.core.domain.constants.PAGINATION_PAGE_SIZE
 import com.devper.app.feature.component.CategoryChipsBox
 import com.devper.app.feature.component.ProductBox
 import com.devper.app.feature.main.wishlist.viewmodel.WishlistEvent
@@ -31,21 +31,19 @@ import com.devper.app.feature.main.wishlist.viewmodel.WishlistState
 fun WishlistScreen(
     state: WishlistState,
     events: (WishlistEvent) -> Unit,
-    navigateToDetail: (String) -> Unit
+    navigateToDetail: (String) -> Unit,
 ) {
-
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(WishlistEvent.OnRemoveHeadFromQueue) },
         progressBarState = state.progressBarState,
         networkState = state.networkState,
-        onTryAgain = { events(WishlistEvent.OnRetryNetwork) }
+        onTryAgain = { events(WishlistEvent.OnRetryNetwork) },
     ) {
-
         Column(modifier = Modifier.fillMaxSize()) {
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(8.dp)
+                contentPadding = PaddingValues(8.dp),
             ) {
                 items(state.wishlist.categories) {
                     CategoryChipsBox(category = it, isSelected = it == state.selectedCategory) {
@@ -54,7 +52,7 @@ fun WishlistScreen(
                 }
             }
 
-            Spacer_8dp()
+            Spacer8dp()
 
             if (state.wishlist.products.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -65,7 +63,6 @@ fun WishlistScreen(
                     )
                 }
             }
-
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -86,17 +83,13 @@ fun WishlistScreen(
                             modifier = Modifier.fillMaxWidth(.5f),
                             onLikeClick = {
                                 events(WishlistEvent.LikeProduct(product.id))
-                            }
+                            },
                         ) {
                             navigateToDetail(product.id.toString())
                         }
                     }
-                }
+                },
             )
-
         }
     }
 }
-
-
-

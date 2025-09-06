@@ -13,9 +13,6 @@ data class LoginRequest(
         @SerialName("password")
         val password: String,
         @SerialName("system")
-        val system: String
+        val system: String,
     )
 }
-
-
-

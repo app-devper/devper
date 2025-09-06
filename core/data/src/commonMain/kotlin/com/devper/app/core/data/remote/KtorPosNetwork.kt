@@ -9,7 +9,6 @@ import io.ktor.client.request.header
 class KtorPosNetwork(
     private val httpModule: HttpModule,
 ) : BaseNetwork {
-
     private var baseUrl: String = httpModule.baseUrl
 
     private val client by lazy { httpModule.client }
@@ -20,12 +19,11 @@ class KtorPosNetwork(
         this.baseUrl = baseUrl
     }
 
-    suspend fun getProducts(): List<ProductResponse> {
-        return client.get("$baseUrl/api/pos/v1/products") {
-            networkConfig.getHeaders().forEach { (key, value) ->
-                header(key, value)
-            }
-        }.toBody()
-    }
-
+    suspend fun getProducts(): List<ProductResponse> =
+        client
+            .get("$baseUrl/api/pos/v1/products") {
+                networkConfig.getHeaders().forEach { (key, value) ->
+                    header(key, value)
+                }
+            }.toBody()
 }

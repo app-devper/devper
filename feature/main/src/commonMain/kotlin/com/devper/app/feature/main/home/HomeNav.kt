@@ -7,14 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import org.koin.compose.koinInject
 import com.devper.app.feature.main.categories.CategoriesNav
 import com.devper.app.feature.main.detail.DetailNav
 import com.devper.app.feature.main.home.viewmodel.HomeViewModel
 import com.devper.app.feature.main.notifications.NotificationsScreen
-import presentation.ui.main.notifications.view_model.NotificationsViewModel
+import com.devper.app.feature.main.notifications.viewmodel.NotificationsViewModel
 import com.devper.app.feature.main.search.SearchNav
-import presentation.ui.main.settings.SettingsScreen
 import com.devper.app.feature.main.settings.viewmodel.SettingsViewModel
 import com.devper.app.feature.navigation.Home
 import com.devper.app.feature.navigation.HomeCategories
@@ -22,6 +20,8 @@ import com.devper.app.feature.navigation.HomeDetail
 import com.devper.app.feature.navigation.HomeSearch
 import com.devper.app.feature.navigation.Notification
 import com.devper.app.feature.navigation.Settings
+import org.koin.compose.koinInject
+import presentation.ui.main.settings.SettingsScreen
 
 @Composable
 fun HomeNav(logout: () -> Unit) {
@@ -30,7 +30,7 @@ fun HomeNav(logout: () -> Unit) {
     NavHost(
         startDestination = Home,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<Home> {
             val viewModel: HomeViewModel = koinInject()
@@ -52,7 +52,7 @@ fun HomeNav(logout: () -> Unit) {
                 },
                 navigateToSearch = { categoryId, sort ->
                     navigator.navigate(HomeSearch(categoryId, sort))
-                }
+                },
             )
         }
 
@@ -101,6 +101,5 @@ fun HomeNav(logout: () -> Unit) {
                 },
             )
         }
-
     }
 }

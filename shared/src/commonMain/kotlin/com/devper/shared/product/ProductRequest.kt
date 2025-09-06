@@ -1,6 +1,5 @@
 package com.devper.shared.product
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

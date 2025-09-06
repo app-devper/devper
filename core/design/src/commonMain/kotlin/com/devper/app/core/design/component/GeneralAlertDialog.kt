@@ -28,54 +28,49 @@ fun GeneralAlertDialog(
     onNegativeClick: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
-
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
-        modifier = Modifier
-            .fillMaxWidth().background(MaterialTheme.colorScheme.background)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth().padding(16.dp).verticalScroll(rememberScrollState()),
         ) {
-
             Text(
                 title,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
-            Spacer_8dp()
+            Spacer8dp()
 
             Text(
                 message,
                 style = MaterialTheme.typography.bodyLarge,
             )
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Row(modifier = Modifier.fillMaxWidth()) {
-
                 DefaultButton(
                     modifier = Modifier.weight(1f).height(DEFAULT__BUTTON_SIZE),
-                    text = positiveButtonText
+                    text = positiveButtonText,
                 ) {
                     onPositiveClick()
                     onDismissRequest()
                 }
-                Spacer_8dp()
+                Spacer8dp()
                 DefaultButton(
                     modifier = Modifier.weight(1f).height(DEFAULT__BUTTON_SIZE),
-                    text = negativeButtonText
+                    text = negativeButtonText,
                 ) {
                     onNegativeClick()
                     onDismissRequest()
                 }
             }
-
         }
-
     }
-
 }

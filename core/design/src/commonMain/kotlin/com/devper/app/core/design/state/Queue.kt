@@ -1,7 +1,8 @@
 package com.devper.app.core.design.state
 
-class Queue<T>(list: MutableList<T>) {
-
+class Queue<T>(
+    list: MutableList<T>,
+) {
     var items: MutableList<T> = list
 
     fun isEmpty(): Boolean = items.isEmpty()
@@ -32,9 +33,7 @@ class Queue<T>(list: MutableList<T>) {
         }
     }
 
-    fun remove(item: T): Boolean {
-        return items.remove(item)
-    }
+    fun remove(item: T): Boolean = items.remove(item)
 
     @Throws(Exception::class)
     fun element(): T {
@@ -75,6 +74,4 @@ class Queue<T>(list: MutableList<T>) {
     fun clear() {
         items.removeAll { true }
     }
-
 }
-

@@ -2,15 +2,14 @@ package com.devper.app.feature.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
 import com.devper.app.core.design.state.NetworkState
+import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
-import com.devper.app.core.design.state.ProgressBarState
-import com.devper.app.core.domain.usecases.KeepAliveUseCase
-import com.devper.app.core.domain.exception.ErrorMapper
-import com.devper.app.core.domain.usecases.LoginUseCase
+import com.devper.app.core.domain.error.ErrorMapper
 import com.devper.app.core.domain.model.login.LoginParam
+import com.devper.app.core.domain.usecases.KeepAliveUseCase
+import com.devper.app.core.domain.usecases.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,20 +19,19 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
-    private val keepAliveUseCase: KeepAliveUseCase
+    private val keepAliveUseCase: KeepAliveUseCase,
 ) : ViewModel() {
-
     private var _uiState = MutableStateFlow(LoginState())
-    val uiState: StateFlow<LoginState> = _uiState
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = LoginState()
-        )
+    val uiState: StateFlow<LoginState> =
+        _uiState
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = LoginState(),
+            )
 
     fun onTriggerEvent(event: LoginEvent) {
         when (event) {
-
             is LoginEvent.Login -> {
                 login()
             }
@@ -87,7 +85,7 @@ class LoginViewModel(
                     _uiState.update {
                         it.copy(
                             navigateToMain = true,
-                            progressBarState = ProgressBarState.Idle
+                            progressBarState = ProgressBarState.Idle,
                         )
                     }
                 },
@@ -95,7 +93,7 @@ class LoginViewModel(
                     _uiState.update {
                         it.copy(progressBarState = ProgressBarState.Idle)
                     }
-                }
+                },
             )
         }
     }
@@ -108,11 +106,12 @@ class LoginViewModel(
 
             // Capture current state values safely within update block
             val currentState = _uiState.value
-            val param = LoginParam(
-                username = currentState.usernameLogin,
-                password = currentState.passwordLogin,
-                system = "POS"
-            )
+            val param =
+                LoginParam(
+                    username = currentState.usernameLogin,
+                    password = currentState.passwordLogin,
+                    system = "POS",
+                )
 
             val result = loginUseCase(param)
             result.fold(
@@ -120,7 +119,7 @@ class LoginViewModel(
                     _uiState.update {
                         it.copy(
                             navigateToMain = true,
-                            progressBarState = ProgressBarState.Idle
+                            progressBarState = ProgressBarState.Idle,
                         )
                     }
                 },
@@ -131,13 +130,12 @@ class LoginViewModel(
                     _uiState.update {
                         it.copy(progressBarState = ProgressBarState.Idle)
                     }
-                }
+                },
             )
         }
     }
 
     private fun register() {
-
     }
 
     private fun onUpdateNameRegister(value: String) {
@@ -158,13 +156,14 @@ class LoginViewModel(
         }
 
         _uiState.update { currentState ->
-            val newQueueItems = currentState.errorQueue.items.toMutableList().apply {
-                add(uiComponent)
-            }
+            val newQueueItems =
+                currentState.errorQueue.items.toMutableList().apply {
+                    add(uiComponent)
+                }
             val newQueue = Queue(newQueueItems)
             currentState.copy(
                 errorQueue = newQueue,
-                progressBarState = ProgressBarState.Idle
+                progressBarState = ProgressBarState.Idle,
             )
         }
     }
@@ -193,5 +192,4 @@ class LoginViewModel(
     private fun onUpdateNetworkState(networkState: NetworkState) {
         _uiState.update { it.copy(networkState = networkState) }
     }
-
 }

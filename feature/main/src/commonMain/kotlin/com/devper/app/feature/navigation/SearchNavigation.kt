@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data object Search
 
 @Serializable
-data class SearchDetail(val id: Int)
-
-
+data class SearchDetail(
+    val id: Int,
+)

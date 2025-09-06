@@ -5,5 +5,5 @@ data class System(
     val clientId: String,
     val systemName: String,
     val systemCode: String,
-    val host: String
+    val host: String,
 )

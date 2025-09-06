@@ -2,24 +2,18 @@ package com.devper.app.feature.main.wishlist.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
-import business.domain.main.Category
-
 import androidx.lifecycle.ViewModel
+import business.domain.main.Category
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-class WishlistViewModel(
-
-) : ViewModel() {
-
+class WishlistViewModel : ViewModel() {
     val state: MutableState<WishlistState> = mutableStateOf(WishlistState())
-
 
     fun onTriggerEvent(event: WishlistEvent) {
         when (event) {
-
             is WishlistEvent.LikeProduct -> {
                 likeProduct(id = event.id)
             }
@@ -55,17 +49,13 @@ class WishlistViewModel(
     }
 
     private fun likeProduct(id: Int) {
-
     }
 
     private fun getWishlist() {
-
     }
-
 
     private fun getNextPage() {
         state.value = state.value.copy(page = state.value.page + 1)
-
     }
 
     private fun onUpdateSelectedCategory(category: Category) {
@@ -96,15 +86,11 @@ class WishlistViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         getWishlist()
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

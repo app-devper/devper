@@ -7,12 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import org.koin.compose.koinInject
-import presentation.ui.main.categories.view_model.CategoriesViewModel
+import com.devper.app.feature.main.categories.viewmodel.CategoriesViewModel
 import com.devper.app.feature.main.search.SearchNav
 import com.devper.app.feature.navigation.Categories
 import com.devper.app.feature.navigation.CategoriesSearch
-import com.devper.app.feature.navigation.Search
+import org.koin.compose.koinInject
 
 @Composable
 fun CategoriesNav(popup: () -> Unit) {
@@ -20,9 +19,8 @@ fun CategoriesNav(popup: () -> Unit) {
     NavHost(
         startDestination = Categories,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
-
         composable<Categories> {
             val viewModel: CategoriesViewModel = koinInject()
             CategoriesScreen(
@@ -43,4 +41,3 @@ fun CategoriesNav(popup: () -> Unit) {
         }
     }
 }
-

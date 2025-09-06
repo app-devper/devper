@@ -6,9 +6,11 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val commonModule = module {
-    singleOf(::CoroutinesDispatcher) { bind<Dispatcher>() }
-}
-
-
-
+val commonModule =
+    module {
+        singleOf(
+            ::CoroutinesDispatcher,
+        ) {
+            bind<Dispatcher>()
+        }
+    }

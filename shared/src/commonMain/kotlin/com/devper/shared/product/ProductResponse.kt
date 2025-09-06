@@ -24,10 +24,10 @@ data class ProductResponse(
     @SerialName("prices")
     val prices: List<ProductPriceResponse>,
     @SerialName("stocks")
-    val stocks: List<ProductStockResponse>
+    val stocks: List<ProductStockResponse>,
 )
 
-//ProductUnit(
+// ProductUnit(
 //      id: json['id'],
 //      productId: json['productId'],
 //      unit: json['unit'],
@@ -56,7 +56,7 @@ data class ProductUnitResponse(
     @SerialName("volume")
     val volume: Double,
     @SerialName("volumeUnit")
-    val volumeUnit: String
+    val volumeUnit: String,
 )
 
 // ProductPrice(
@@ -79,7 +79,7 @@ data class ProductPriceResponse(
     @SerialName("customerType")
     val customerType: String,
     @SerialName("price")
-    val price: Double
+    val price: Double,
 )
 
 // ProductStock(
@@ -123,7 +123,5 @@ data class ProductStockResponse(
     @SerialName("expireDate")
     val expireDate: String,
     @SerialName("importDate")
-    val importDate: String
+    val importDate: String,
 )
-
-

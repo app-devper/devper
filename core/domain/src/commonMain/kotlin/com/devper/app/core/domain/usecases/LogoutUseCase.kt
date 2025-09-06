@@ -10,10 +10,9 @@ class LogoutUseCase(
     private val loginRepo: LoginRepository,
     private val session: SessionProvider,
 ) : UseCase<Unit, Unit>(dispatcher.io()) {
-    override suspend fun execute(param: Unit) {
-        return loginRepo.logout().let {
+    override suspend fun execute(param: Unit) =
+        loginRepo.logout().let {
             session.clear()
             it
         }
-    }
 }

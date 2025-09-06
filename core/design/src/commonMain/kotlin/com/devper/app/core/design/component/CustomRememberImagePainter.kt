@@ -9,7 +9,6 @@ import com.devper.app.design.resources.default_image_loader
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun rememberCustomImagePainter(
@@ -17,10 +16,11 @@ fun rememberCustomImagePainter(
     imageLoader: ImageLoader,
     contentScale: ContentScale = ContentScale.Fit,
 ) = rememberAsyncImagePainter(
-    model, imageLoader,
+    model,
+    imageLoader,
     error = painterResource(Res.drawable.default_image_loader),
     placeholder = painterResource(Res.drawable.default_image_loader),
-    contentScale = contentScale
+    contentScale = contentScale,
 )
 
 @OptIn(ExperimentalResourceApi::class)

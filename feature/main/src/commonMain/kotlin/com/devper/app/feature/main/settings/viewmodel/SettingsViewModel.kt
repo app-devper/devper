@@ -2,28 +2,23 @@ package com.devper.app.feature.main.settings.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.ProgressBarState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.domain.usecases.LogoutUseCase
 import kotlinx.coroutines.launch
-import presentation.ui.main.settings.view_model.SettingsEvent
-import presentation.ui.main.settings.view_model.SettingsState
 
 class SettingsViewModel(
-    val logoutUseCase: LogoutUseCase
+    val logoutUseCase: LogoutUseCase,
 ) : ViewModel() {
-
     val state: MutableState<SettingsState> = mutableStateOf(SettingsState())
 
     fun onTriggerEvent(event: SettingsEvent) {
         when (event) {
-
             is SettingsEvent.Logout -> {
                 logout()
             }
@@ -61,10 +56,10 @@ class SettingsViewModel(
                     appendToMessageQueue(
                         UIComponent.Dialog(
                             title = "Logout Failed",
-                            description = error.message ?: "An error occurred while logging out."
-                        )
+                            description = error.message ?: "An error occurred while logging out.",
+                        ),
                     )
-                }
+                },
             )
         }
     }
@@ -93,12 +88,9 @@ class SettingsViewModel(
     }
 
     private fun onRetryNetwork() {
-
     }
 
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

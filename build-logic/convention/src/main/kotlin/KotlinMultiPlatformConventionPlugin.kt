@@ -13,9 +13,13 @@ class KotlinMultiPlatformConventionPlugin: Plugin<Project> {
             apply(libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(libs.findPlugin("androidLibrary").get().get().pluginId)
             apply(libs.findPlugin("kotlin.serialization").get().get().pluginId)
+            apply(libs.findPlugin("ktlint").get().get().pluginId)
         }
 
         extensions.configure<KotlinMultiplatformExtension>(::configureKotlinMultiplatform)
         extensions.configure<LibraryExtension>(::configureKotlinAndroid)
+        extensions.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+            debug.set(true)
+        }
     }
 }

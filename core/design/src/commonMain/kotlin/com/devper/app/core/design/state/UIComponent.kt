@@ -1,10 +1,9 @@
 package com.devper.app.core.design.state
 
 sealed class UIComponent {
-
     data class Dialog(
         val title: String,
-        val description: String
+        val description: String,
     ) : UIComponent()
 
     data class ToastSimple(
@@ -14,5 +13,4 @@ sealed class UIComponent {
     data class None(
         val message: String,
     ) : UIComponent()
-
 }

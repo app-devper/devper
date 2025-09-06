@@ -33,6 +33,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE_EXTRA
+import com.devper.app.core.design.component.DefaultButton
+import com.devper.app.core.design.component.DefaultScreenUI
+import com.devper.app.core.design.component.PasswordTextField
+import com.devper.app.core.design.component.SimpleImageButton
+import com.devper.app.core.design.component.Spacer16dp
+import com.devper.app.core.design.component.Spacer32dp
+import com.devper.app.core.design.component.Spacer4dp
+import com.devper.app.core.design.component.Spacer8dp
+import com.devper.app.core.design.theme.DefaultCheckBoxTheme
+import com.devper.app.core.design.theme.DefaultTextFieldTheme
 import com.devper.app.design.resources.Res
 import com.devper.app.design.resources.agree_with
 import com.devper.app.design.resources.already_have_account
@@ -50,22 +61,10 @@ import com.devper.app.design.resources.register_title
 import com.devper.app.design.resources.sign_in
 import com.devper.app.design.resources.sign_up
 import com.devper.app.design.resources.terms_condition
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.stringResource
-import com.devper.app.core.design.component.DEFAULT__BUTTON_SIZE_EXTRA
-import com.devper.app.core.design.component.DefaultButton
-import com.devper.app.core.design.component.DefaultScreenUI
-import com.devper.app.core.design.component.PasswordTextField
-import com.devper.app.core.design.component.SimpleImageButton
-import com.devper.app.core.design.component.Spacer_16dp
-import com.devper.app.core.design.component.Spacer_32dp
-import com.devper.app.core.design.component.Spacer_4dp
-import com.devper.app.core.design.component.Spacer_8dp
-import com.devper.app.core.design.theme.DefaultCheckBoxTheme
-import com.devper.app.core.design.theme.DefaultTextFieldTheme
 import com.devper.app.feature.login.viewmodel.LoginEvent
 import com.devper.app.feature.login.viewmodel.LoginState
-
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -73,9 +72,8 @@ fun RegisterScreen(
     state: LoginState,
     events: (LoginEvent) -> Unit,
     navigateToMain: () -> Unit,
-    popUp: () -> Unit
+    popUp: () -> Unit,
 ) {
-
     LaunchedEffect(state.navigateToMain) {
         if (state.navigateToMain) {
             navigateToMain()
@@ -89,29 +87,29 @@ fun RegisterScreen(
     DefaultScreenUI(
         queue = state.errorQueue,
         onRemoveHeadFromQueue = { events(LoginEvent.OnRemoveHeadFromQueue) },
-        progressBarState = state.progressBarState
+        progressBarState = state.progressBarState,
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 stringResource(Res.string.create_account),
-                style = MaterialTheme.typography.displaySmall
+                style = MaterialTheme.typography.displaySmall,
             )
-            Spacer_16dp()
+            Spacer16dp()
             Text(
                 stringResource(Res.string.register_title),
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
-            Spacer_32dp()
+            Spacer32dp()
 
             Column(
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(stringResource(Res.string.name))
-                Spacer_4dp()
+                Spacer4dp()
                 TextField(
                     value = state.nameRegister,
                     onValueChange = {
@@ -121,16 +119,16 @@ fun RegisterScreen(
                     colors = DefaultTextFieldTheme(),
                     shape = MaterialTheme.shapes.small,
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text,
-                    ),
+                    keyboardOptions =
+                        KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text,
+                        ),
                 )
-                Spacer_8dp()
-
+                Spacer8dp()
 
                 Text(stringResource(Res.string.email))
-                Spacer_4dp()
+                Spacer4dp()
                 TextField(
                     isError = isUsernameError,
                     value = state.usernameLogin,
@@ -144,22 +142,23 @@ fun RegisterScreen(
                     colors = DefaultTextFieldTheme(),
                     shape = MaterialTheme.shapes.small,
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email,
-                    ),
+                    keyboardOptions =
+                        KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Email,
+                        ),
                 )
                 AnimatedVisibility(visible = isUsernameError) {
                     Text(
                         stringResource(Res.string.enter_valid_email),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
+                        color = MaterialTheme.colorScheme.error,
                     )
                 }
-                Spacer_8dp()
+                Spacer8dp()
 
                 Text(stringResource(Res.string.password))
-                Spacer_4dp()
+                Spacer4dp()
                 PasswordTextField(
                     value = state.passwordLogin,
                     onValueChange = {
@@ -173,12 +172,12 @@ fun RegisterScreen(
                     Text(
                         stringResource(Res.string.enter_valid_password),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error
+                        color = MaterialTheme.colorScheme.error,
                     )
                 }
             }
 
-            Spacer_8dp()
+            Spacer8dp()
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -186,82 +185,83 @@ fun RegisterScreen(
                 horizontalArrangement = Arrangement.Start,
             ) {
                 Checkbox(
-                    checked = isChecked, onCheckedChange = { isChecked = it },
-                    colors = DefaultCheckBoxTheme()
+                    checked = isChecked,
+                    onCheckedChange = { isChecked = it },
+                    colors = DefaultCheckBoxTheme(),
                 )
                 Text(
-                    text = buildAnnotatedString {
-                        append(stringResource(Res.string.agree_with))
-                        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                            append(stringResource(Res.string.terms_condition))
-                        }
-                        append(".")
-                    },
+                    text =
+                        buildAnnotatedString {
+                            append(stringResource(Res.string.agree_with))
+                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+                                append(stringResource(Res.string.terms_condition))
+                            }
+                            append(".")
+                        },
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 DefaultButton(
                     progressBarState = state.progressBarState,
                     text = stringResource(Res.string.sign_up),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(DEFAULT__BUTTON_SIZE_EXTRA),
-                    onClick = { events(LoginEvent.Register) }
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(DEFAULT__BUTTON_SIZE_EXTRA),
+                    onClick = { events(LoginEvent.Register) },
                 )
 
                 Spacer(Modifier.height(32.dp))
             }
 
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     HorizontalDivider(modifier = Modifier.width(75.dp))
                     Text(text = stringResource(Res.string.or_sign_up_with))
                     HorizontalDivider(modifier = Modifier.width(75.dp))
                 }
-                Spacer_32dp()
+                Spacer32dp()
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     SimpleImageButton(Res.drawable.facebook)
                     SimpleImageButton(Res.drawable.apple)
                     SimpleImageButton(Res.drawable.google)
                 }
-
             }
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(Res.string.already_have_account),
                 )
-                Spacer_4dp()
+                Spacer4dp()
                 Text(
-                    modifier = Modifier.clickable {
-                        popUp()
-                    },
+                    modifier =
+                        Modifier.clickable {
+                            popUp()
+                        },
                     text = stringResource(Res.string.sign_in),
                     color = MaterialTheme.colorScheme.primary,
-                    textDecoration = TextDecoration.Underline
+                    textDecoration = TextDecoration.Underline,
                 )
             }
-
         }
     }
 }

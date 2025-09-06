@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HomeSearch(
     val categoryId: Int?,
-    val sort: Int?
+    val sort: Int?,
 )
 
 @Serializable
@@ -21,5 +21,6 @@ data object HomeCategories
 data object Settings
 
 @Serializable
-data class HomeDetail(val id: Int)
-
+data class HomeDetail(
+    val id: Int,
+)

@@ -1,21 +1,20 @@
-package presentation.ui.main.settings.view_model
+package com.devper.app.feature.main.settings.viewmodel
 
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.UIComponent
 
 sealed class SettingsEvent {
-
     data object Logout : SettingsEvent()
 
     data object OnRemoveHeadFromQueue : SettingsEvent()
 
     data class Error(
-        val uiComponent: UIComponent
+        val uiComponent: UIComponent,
     ) : SettingsEvent()
 
     data object OnRetryNetwork : SettingsEvent()
 
     data class OnUpdateNetworkState(
-        val networkState: NetworkState
+        val networkState: NetworkState,
     ) : SettingsEvent()
 }

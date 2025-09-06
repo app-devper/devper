@@ -27,25 +27,26 @@ fun TopTitleBar(
     title: String,
     onBack: () -> Unit,
     action: String? = null,
-    onAction: (() -> Unit)? = null
+    onAction: (() -> Unit)? = null,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Row(
-            modifier = Modifier
-                .width(72.dp)
-                .clickable { onBack() }
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .width(72.dp)
+                    .clickable { onBack() }
+                    .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 contentDescription = "Back",
                 tint = Color.Gray,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(16.dp),
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -53,7 +54,7 @@ fun TopTitleBar(
                 color = Color.Gray,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                maxLines = 1
+                maxLines = 1,
             )
         }
 
@@ -64,21 +65,22 @@ fun TopTitleBar(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         if (action != null) {
             Text(
                 text = action,
-                modifier = Modifier
-                    .width(72.dp)
-                    .clickable { onAction?.invoke() }
-                    .padding(8.dp),
+                modifier =
+                    Modifier
+                        .width(72.dp)
+                        .clickable { onAction?.invoke() }
+                        .padding(8.dp),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         } else {
             Spacer(modifier = Modifier.width(72.dp))

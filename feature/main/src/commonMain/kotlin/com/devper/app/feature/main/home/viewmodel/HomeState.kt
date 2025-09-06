@@ -15,7 +15,6 @@ import kotlin.time.ExperimentalTime
 data class HomeState(
     val home: Home = Home(),
     val time: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
-
     val progressBarState: ProgressBarState = ProgressBarState.Idle,
     val networkState: NetworkState = NetworkState.Good,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),

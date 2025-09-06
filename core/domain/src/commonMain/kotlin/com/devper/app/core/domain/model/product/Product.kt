@@ -10,7 +10,7 @@ data class Product(
     var createdDate: String = "",
     var units: List<ProductUnit> = emptyList(),
     var prices: List<ProductPrice> = emptyList(),
-    var stocks: List<ProductStock> = emptyList()
+    var stocks: List<ProductStock> = emptyList(),
 ) {
     fun toProductItems(): List<ProductUnitItem> {
         val items = mutableListOf<ProductUnitItem>()
@@ -28,29 +28,23 @@ data class Product(
                     createdDate = createdDate,
                     unit = unit,
                     prices = prices,
-                    stocks = stocks
-                )
+                    stocks = stocks,
+                ),
             )
         }
         return items
     }
 
-    fun getQuantity(): Int {
-        return stocks.fold(0) { previousValue, stock -> previousValue + stock.quantity }
-    }
+    fun getQuantity(): Int = stocks.fold(0) { previousValue, stock -> previousValue + stock.quantity }
 
-    fun getQuantityByUnitId(unitId: String): Int {
-        return stocks.filter { it.unitId == unitId }
+    fun getQuantityByUnitId(unitId: String): Int =
+        stocks
+            .filter { it.unitId == unitId }
             .fold(0) { previousValue, stock -> previousValue + stock.quantity }
-    }
 
-    fun getProductPricesByUnitId(unitId: String): List<ProductPrice> {
-        return prices.filter { it.unitId == unitId }
-    }
+    fun getProductPricesByUnitId(unitId: String): List<ProductPrice> = prices.filter { it.unitId == unitId }
 
-    fun defaultProductPriceByUnitId(unitId: String): ProductPrice {
-        return prices.first { it.unitId == unitId && it.customerType == "General" }
-    }
+    fun defaultProductPriceByUnitId(unitId: String): ProductPrice = prices.first { it.unitId == unitId && it.customerType == "General" }
 
     fun getProductStocksByUnitId(unitId: String): List<ProductStock> {
         val items = stocks.filter { it.unitId == unitId }
@@ -68,17 +62,17 @@ data class ProductUnitItem(
     val createdDate: String,
     val unit: ProductUnit,
     val prices: List<ProductPrice>,
-    var stocks: List<ProductStock>
+    var stocks: List<ProductStock>,
 ) {
     fun getPrice(customerType: String): ProductPriceType {
         val stock = firstSequenceStock()
-        if (customerType == priceTypeStock) {
+        if (customerType == PRICE_TYPE_STOCK) {
             if (stock != null && stock.price > 0) {
                 return ProductPriceType(
                     stock = stock,
-                    type = priceTypeStock,
+                    type = PRICE_TYPE_STOCK,
                     price = stock.price,
-                    costPrice = if (stock.costPrice > 0) stock.costPrice else unit.costPrice
+                    costPrice = if (stock.costPrice > 0) stock.costPrice else unit.costPrice,
                 )
             }
         }
@@ -89,14 +83,14 @@ data class ProductUnitItem(
                     stock = stock,
                     type = price.customerType,
                     price = price.price,
-                    costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice
+                    costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice,
                 )
             } else {
                 ProductPriceType(
                     stock = stock,
                     type = prices.first().customerType,
                     price = prices.first().price,
-                    costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice
+                    costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice,
                 )
             }
         } else {
@@ -104,7 +98,7 @@ data class ProductUnitItem(
                 stock = stock,
                 type = "",
                 price = 0.0,
-                costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice
+                costPrice = if (stock != null && stock.costPrice > 0) stock.costPrice else unit.costPrice,
             )
         }
     }
@@ -119,24 +113,20 @@ data class ProductUnitItem(
         return null
     }
 
-    fun getQuantity(): Int {
-        return stocks.fold(0) { previousValue, stock -> previousValue + stock.quantity }
-    }
+    fun getQuantity(): Int = stocks.fold(0) { previousValue, stock -> previousValue + stock.quantity }
 
     fun updateProductStockSequence(items: List<ProductStock>) {
         stocks = items
     }
 
-    fun getProductStockById(stockId: String?): ProductStock? {
-        return stocks.firstOrNull { it.id == stockId }
-    }
+    fun getProductStockById(stockId: String?): ProductStock? = stocks.firstOrNull { it.id == stockId }
 }
 
 data class ProductPriceType(
     val stock: ProductStock?,
     val type: String,
     val price: Double,
-    val costPrice: Double
+    val costPrice: Double,
 )
 
 data class ProductStock(
@@ -151,7 +141,7 @@ data class ProductStock(
     var import: Int,
     var quantity: Int,
     var expireDate: String,
-    var importDate: String
+    var importDate: String,
 )
 
 data class ProductPrice(
@@ -159,16 +149,15 @@ data class ProductPrice(
     val productId: String,
     val unitId: String,
     var customerType: String,
-    var price: Double
+    var price: Double,
 ) {
-    fun getCustomerTypePrice(): String {
-        return when (customerType) {
+    fun getCustomerTypePrice(): String =
+        when (customerType) {
             "General" -> "ราคาหน้าร้าน"
             "Regular" -> "ลูกค้าประจำ"
             "Wholesaler" -> "ราคาขายส่ง"
             else -> "ไม่มีราคา"
         }
-    }
 
     fun getCustomerTypeDisplay(): String {
         val customerType = customerTypes.firstOrNull { it.type == this.customerType }
@@ -184,18 +173,19 @@ data class ProductUnit(
     var size: Int,
     var barcode: String,
     var volume: Double,
-    var volumeUnit: String
+    var volumeUnit: String,
 )
 
 data class ItemType(
     val name: String,
-    val type: String
+    val type: String,
 )
 
-val customerTypes = listOf(
-    ItemType(name = "หน้าร้าน", type = "General"),
-    ItemType(name = "ลูกค้าประจำ", type = "Regular"),
-    ItemType(name = "ขายส่ง", type = "Wholesaler")
-)
+val customerTypes =
+    listOf(
+        ItemType(name = "หน้าร้าน", type = "General"),
+        ItemType(name = "ลูกค้าประจำ", type = "Regular"),
+        ItemType(name = "ขายส่ง", type = "Wholesaler"),
+    )
 
-const val priceTypeStock = "Stock"
+const val PRICE_TYPE_STOCK = "Stock"

@@ -1,34 +1,29 @@
-package presentation.ui.main.checkout.view_model
+package com.devper.app.feature.main.checkout.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.devper.app.core.domain.constants.CUSTOM_TAG
+import androidx.lifecycle.ViewModel
 import business.domain.main.Address
 import business.domain.main.ShippingType
-import androidx.lifecycle.ViewModel
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
 import com.devper.app.core.design.state.UIComponentState
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
-val shippingType_global = listOf(
-    ShippingType("Economy", 25, 7),
-    ShippingType("Regular", 35, 6),
-    ShippingType("Cargo", 45, 5),
-    ShippingType("Express", 55, 4)
-)
+val shippingType_global =
+    listOf(
+        ShippingType("Economy", 25, 7),
+        ShippingType("Regular", 35, 6),
+        ShippingType("Cargo", 45, 5),
+        ShippingType("Express", 55, 4),
+    )
 
-class CheckoutViewModel(
-
-) : ViewModel() {
-
-
+class CheckoutViewModel : ViewModel() {
     val state: MutableState<CheckoutState> = mutableStateOf(CheckoutState())
-
 
     fun onTriggerEvent(event: CheckoutEvent) {
         when (event) {
-
             is CheckoutEvent.BuyProduct -> {
                 buyProduct()
             }
@@ -63,22 +58,18 @@ class CheckoutViewModel(
         }
     }
 
-
     init {
         getAddresses()
         getCart()
     }
 
     private fun buyProduct() {
-
     }
 
     private fun getCart() {
-
     }
 
     private fun getAddresses() {
-
     }
 
     private fun onUpdateSelectShippingDialogState(value: UIComponentState) {
@@ -95,7 +86,6 @@ class CheckoutViewModel(
     private fun onUpdateSelectedAddress(value: Address) {
         state.value = state.value.copy(selectedAddress = value)
     }
-
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
         if (uiComponent is UIComponent.None) {
@@ -127,5 +117,4 @@ class CheckoutViewModel(
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
 }

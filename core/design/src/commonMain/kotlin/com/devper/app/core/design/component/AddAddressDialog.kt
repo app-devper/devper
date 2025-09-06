@@ -27,161 +27,165 @@ import androidx.compose.ui.unit.dp
 import com.devper.app.core.design.theme.BorderColor
 import com.devper.app.core.design.theme.DefaultTextFieldTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddAddressDialog(
     onDismissRequest: () -> Unit,
-    onExecute: (String, String, String, String, String) -> Unit
+    onExecute: (String, String, String, String, String) -> Unit,
 ) {
-
     var address by remember { mutableStateOf("") }
     var city by remember { mutableStateOf("") }
     var state by remember { mutableStateOf("") }
     var country by remember { mutableStateOf("") }
     var zipCode by remember { mutableStateOf("") }
 
-
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
-        modifier = Modifier
-            .fillMaxWidth(0.9f).background(MaterialTheme.colorScheme.background)
+        modifier =
+            Modifier
+                .fillMaxWidth(0.9f)
+                .background(MaterialTheme.colorScheme.background),
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth().padding(16.dp).verticalScroll(rememberScrollState()),
         ) {
-
-            Spacer_16dp()
+            Spacer16dp()
 
             Text(
                 "Add",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
 
-            Spacer_32dp()
+            Spacer32dp()
 
             Text(
                 "Country:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = country, onValueChange = { country = it },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = country,
+                onValueChange = { country = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 "State:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = state, onValueChange = { state = it },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = state,
+                onValueChange = { state = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 "City:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = city, onValueChange = { city = it },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = city,
+                onValueChange = { city = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 "Address:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = address, onValueChange = { address = it },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = address,
+                onValueChange = { address = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
-            Spacer_8dp()
+            Spacer8dp()
             Text(
                 "Zip Code:",
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
-
             TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderColor, MaterialTheme.shapes.small),
-                value = zipCode, onValueChange = { zipCode = it },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, BorderColor, MaterialTheme.shapes.small),
+                value = zipCode,
+                onValueChange = { zipCode = it },
                 colors = DefaultTextFieldTheme(),
                 shape = MaterialTheme.shapes.small,
                 singleLine = false,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Text,
-                ),
+                keyboardOptions =
+                    KeyboardOptions(
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Text,
+                    ),
             )
 
-            Spacer_16dp()
+            Spacer16dp()
 
             DefaultButton(
                 modifier = Modifier.fillMaxWidth().height(DEFAULT__BUTTON_SIZE),
-                text = "Submit"
+                text = "Submit",
             ) {
                 onExecute(address, country, city, state, zipCode)
                 onDismissRequest()
             }
 
-            Spacer_16dp()
+            Spacer16dp()
         }
-
     }
-
-
 }

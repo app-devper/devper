@@ -14,51 +14,47 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageOptionDialog(
     onDismissRequest: () -> Unit,
     onGalleryRequest: () -> Unit = {},
-    onCameraRequest: () -> Unit = {}
+    onCameraRequest: () -> Unit = {},
 ) {
-
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-
-        Column(
-            modifier = Modifier
+        modifier =
+            Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-        ) {
-
-            DefaultButton(
-                modifier = Modifier
+                .background(MaterialTheme.colorScheme.background),
+    ) {
+        Column(
+            modifier =
+                Modifier
                     .fillMaxWidth()
-                    .height(DEFAULT__BUTTON_SIZE),
-                text = "Gallery"
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState()),
+        ) {
+            DefaultButton(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(DEFAULT__BUTTON_SIZE),
+                text = "Gallery",
             ) {
                 onGalleryRequest()
                 onDismissRequest()
             }
 
-            Spacer_16dp()
+            Spacer16dp()
 
             DefaultButton(
                 modifier = Modifier.fillMaxWidth().height(DEFAULT__BUTTON_SIZE),
-                text = "Camera"
+                text = "Camera",
             ) {
                 onCameraRequest()
                 onDismissRequest()
             }
-
         }
-
     }
-
 }

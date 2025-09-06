@@ -1,26 +1,22 @@
-package presentation.ui.main.comment.view_model
+package com.devper.app.feature.main.comment.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.devper.app.core.domain.constants.CUSTOM_TAG
 import com.devper.app.core.design.state.NetworkState
 import com.devper.app.core.design.state.Queue
 import com.devper.app.core.design.state.UIComponent
 import com.devper.app.core.design.state.UIComponentState
+import com.devper.app.core.domain.constants.CUSTOM_TAG
 
 class CommentViewModel(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
-
     val state: MutableState<CommentState> = mutableStateOf(CommentState())
-
 
     fun onTriggerEvent(event: CommentEvent) {
         when (event) {
-
             is CommentEvent.AddComment -> {
                 addComment(comment = event.comment, rate = event.rate)
             }
@@ -55,7 +51,6 @@ class CommentViewModel(
         }
     }
 
-
     init {
         savedStateHandle.get<Int>("id")?.let { id ->
             onTriggerEvent(CommentEvent.OnUpdateProductId(id))
@@ -63,18 +58,17 @@ class CommentViewModel(
         }
     }
 
-
     private fun onUpdateProductId(id: Int) {
         state.value = state.value.copy(productId = id)
     }
 
-
-    private fun addComment(comment: String, rate: Double) {
-
+    private fun addComment(
+        comment: String,
+        rate: Double,
+    ) {
     }
 
     private fun getComments() {
-
     }
 
     private fun onUpdateAddCommentDialogState(value: UIComponentState) {
@@ -104,15 +98,11 @@ class CommentViewModel(
         }
     }
 
-
     private fun onRetryNetwork() {
         onTriggerEvent(CommentEvent.GetComments)
     }
 
-
     private fun onUpdateNetworkState(networkState: NetworkState) {
         state.value = state.value.copy(networkState = networkState)
     }
-
-
 }

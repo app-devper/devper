@@ -37,12 +37,11 @@ import com.devper.app.core.design.theme.DefaultButtonWithBorderPrimaryTheme
 val DEFAULT__BUTTON_SIZE = 50.dp
 val DEFAULT__BUTTON_SIZE_EXTRA = 60.dp
 
-
 @Composable
 fun CircleButton(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = modifier.size(50.dp),
@@ -51,11 +50,11 @@ fun CircleButton(
         border = BorderStroke(1.dp, BorderColor),
         onClick = {
             onClick()
-        }
+        },
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(imageVector, null)
         }
@@ -74,7 +73,7 @@ fun ButtonLoading(
     border: BorderStroke? = null,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     Button(
         enabled = (enabled || progressBarState != ProgressBarState.Idle),
@@ -89,10 +88,14 @@ fun ButtonLoading(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-
-            AnimatedVisibility(visible = (progressBarState == ProgressBarState.ButtonLoading || progressBarState == ProgressBarState.FullScreenLoading)) {
+            AnimatedVisibility(
+                visible = (
+                    progressBarState == ProgressBarState.ButtonLoading ||
+                        progressBarState == ProgressBarState.FullScreenLoading
+                ),
+            ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(25.dp),
                     strokeWidth = 2.dp,
@@ -119,14 +122,20 @@ fun DefaultButton(
     ButtonLoading(
         enabled = enabled,
         modifier = modifier,
-        elevation = if (enableElevation) ButtonDefaults.buttonElevation() else ButtonDefaults.buttonElevation(
-            0.dp
-        ),
+        elevation =
+            if (enableElevation) {
+                ButtonDefaults.buttonElevation()
+            } else {
+                ButtonDefaults.buttonElevation(
+                    0.dp,
+                )
+            },
         colors = if (enabled) DefaultButtonTheme() else DefaultButtonWithBorderPrimaryTheme(),
-        border = BorderStroke(
-            1.dp,
-            MaterialTheme.colorScheme.primary
-        ),
+        border =
+            BorderStroke(
+                1.dp,
+                MaterialTheme.colorScheme.primary,
+            ),
         shape = shape,
         onClick = onClick,
         progressBarState = progressBarState,

@@ -15,14 +15,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun CircleImage(
     image: String,
     modifier: Modifier = Modifier.size(55.dp),
     onClick: (() -> Unit?)? = null,
     width: Dp = 1.5.dp,
-    color: Color = Color.White
+    color: Color = Color.White,
 ) {
     Card(
         modifier = modifier,
@@ -33,17 +32,16 @@ fun CircleImage(
         },
         border = if (width == 0.dp) null else BorderStroke(width = width, color = color),
         shape = CircleShape,
-        elevation = CardDefaults.cardElevation(0.dp)
+        elevation = CardDefaults.cardElevation(0.dp),
     ) {
         Image(
             rememberCustomImagePainter(image),
             null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
-
 
 @Composable
 fun CircleImage(
@@ -51,7 +49,7 @@ fun CircleImage(
     modifier: Modifier = Modifier.size(55.dp),
     onClick: (() -> Unit?)? = null,
     width: Dp = 1.5.dp,
-    color: Color = Color.White
+    color: Color = Color.White,
 ) {
     Card(
         modifier = modifier,
@@ -62,21 +60,21 @@ fun CircleImage(
         },
         border = if (width == 0.dp) null else BorderStroke(width = width, color = color),
         shape = CircleShape,
-        elevation = CardDefaults.cardElevation(0.dp)
+        elevation = CardDefaults.cardElevation(0.dp),
     ) {
         if (image == null) {
             Image(
                 rememberCustomImagePainter(image),
                 null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         } else {
             Image(
                 image,
                 null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         }
     }

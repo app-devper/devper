@@ -11,8 +11,5 @@ class GetProductByIdUseCase(
     private val productRepo: ProductRepository,
     private val session: SessionProvider,
 ) : UseCase<String, Product>(dispatcher.io()) {
-
-    override suspend fun execute(param: String): Product {
-        return productRepo.getProductById(param)
-    }
+    override suspend fun execute(param: String): Product = productRepo.getProductById(param)
 }

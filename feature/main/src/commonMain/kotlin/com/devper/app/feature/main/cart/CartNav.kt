@@ -7,17 +7,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import org.koin.compose.koinInject
 import com.devper.app.feature.main.address.AddressScreen
-import presentation.ui.main.address.view_model.AddressViewModel
-import presentation.ui.main.cart.view_model.CartViewModel
+import com.devper.app.feature.main.address.viewmodel.AddressViewModel
+import com.devper.app.feature.main.cart.viewmodel.CartViewModel
 import com.devper.app.feature.main.checkout.CheckoutScreen
+import com.devper.app.feature.main.checkout.viewmodel.CheckoutViewModel
+import com.devper.app.feature.main.detail.DetailNav
 import com.devper.app.feature.navigation.Address
 import com.devper.app.feature.navigation.Cart
 import com.devper.app.feature.navigation.CartDetail
 import com.devper.app.feature.navigation.Checkout
-import presentation.ui.main.checkout.view_model.CheckoutViewModel
-import com.devper.app.feature.main.detail.DetailNav
+import org.koin.compose.koinInject
 
 @Composable
 fun CartNav() {
@@ -25,7 +25,7 @@ fun CartNav() {
     NavHost(
         startDestination = Cart,
         navController = navigator,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable<Cart> {
             val viewModel: CartViewModel = koinInject()
@@ -35,9 +35,11 @@ fun CartNav() {
                 navigateToDetail = {
                     navigator.popBackStack()
                     navigator.navigate(CartDetail("$it"))
-                }, navigateToCheckout = {
+                },
+                navigateToCheckout = {
                     navigator.navigate(Checkout)
-                })
+                },
+            )
         }
         composable<Checkout> {
             val viewModel: CheckoutViewModel = koinInject()

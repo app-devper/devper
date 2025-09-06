@@ -1,6 +1,5 @@
 package business.domain.main
 
- 
 data class Basket(
     val id: Int,
     val productId: Int,
@@ -10,6 +9,6 @@ data class Basket(
     val image: String,
     val price: Int,
     val count: Int,
-){
+) {
     fun getPrice() = "$ $price"
 }
