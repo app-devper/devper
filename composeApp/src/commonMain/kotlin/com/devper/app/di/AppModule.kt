@@ -5,7 +5,8 @@ import coil3.network.NetworkFetcher
 import coil3.network.ktor3.asNetworkClient
 import com.devper.app.config.AppHost
 import com.devper.app.config.AppNetworkConfig
-import com.devper.app.core.common.di.commonModule
+import com.devper.app.config.AppCoroutinesDispatcher
+import com.devper.app.core.common.thread.Dispatcher
 import com.devper.app.core.data.di.dataModule
 import com.devper.app.core.domain.di.domainModule
 import com.devper.app.core.domain.provider.HostProvider
@@ -22,7 +23,6 @@ import org.koin.dsl.module
 val appModule = module {
     includes(httpModule)
 
-    includes(commonModule)
     includes(dataModule)
     includes(domainModule)
 
@@ -36,6 +36,8 @@ val appModule = module {
             },
         )
     }
+
+    singleOf(::AppCoroutinesDispatcher) { bind<Dispatcher>() }
 
     singleOf(::AppNetworkConfig) { bind<NetworkConfig>() }
 

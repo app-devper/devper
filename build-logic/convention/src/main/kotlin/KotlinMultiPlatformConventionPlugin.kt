@@ -6,10 +6,11 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import com.devper.app.configureKotlinAndroid
 import com.devper.app.configureKotlinMultiplatform
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
-class KotlinMultiPlatformConventionPlugin: Plugin<Project> {
+class KotlinMultiPlatformConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        with(pluginManager){
+        with(pluginManager) {
             apply(libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(libs.findPlugin("androidLibrary").get().get().pluginId)
             apply(libs.findPlugin("kotlin.serialization").get().get().pluginId)
@@ -18,7 +19,7 @@ class KotlinMultiPlatformConventionPlugin: Plugin<Project> {
 
         extensions.configure<KotlinMultiplatformExtension>(::configureKotlinMultiplatform)
         extensions.configure<LibraryExtension>(::configureKotlinAndroid)
-        extensions.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        extensions.configure<KtlintExtension> {
             debug.set(true)
         }
     }

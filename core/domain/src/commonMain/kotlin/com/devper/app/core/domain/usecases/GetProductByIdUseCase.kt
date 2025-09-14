@@ -11,5 +11,8 @@ class GetProductByIdUseCase(
     private val productRepo: ProductRepository,
     private val session: SessionProvider,
 ) : UseCase<String, Product>(dispatcher.io()) {
-    override suspend fun execute(param: String): Product = productRepo.getProductById(param)
+    override suspend fun execute(param: String): Product {
+        require(param.isNotEmpty()) { "Product ID must not be empty" }
+        return productRepo.getProductById(param)
+    }
 }

@@ -16,7 +16,7 @@ class KeepAliveUseCase(
 ) : UseCase<Unit, Login>(dispatcher.io()) {
     override suspend fun execute(param: Unit): Login {
         val accessToken = loginRepo.getAccessToken()
-        require(accessToken.isEmpty()) { "Access token is empty" }
+        require(accessToken.isNotEmpty()) { "Access token is empty" }
         session.setAccessToken(accessToken)
         return loginRepo.keepAlive().let {
             session.setAccessToken(it.accessToken)

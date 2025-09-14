@@ -23,12 +23,14 @@ val httpModule =
         singleOf(::HttpModule)
     }
 
-class HttpModule(
+open class HttpModule(
     val networkConfig: NetworkConfig,
 ) {
-    val client: HttpClient by lazy { createHttpClient() }
+    var client: HttpClient = createHttpClient()
+
     val baseUrl: String by lazy { networkConfig.getBaseUrl() }
-    val isDebug: Boolean by lazy { networkConfig.isDebug() }
+
+    private val isDebug: Boolean get() = networkConfig.isDebug()
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun createHttpClient(): HttpClient =
