@@ -3,9 +3,9 @@ package com.devper.app.di
 import coil3.annotation.ExperimentalCoilApi
 import coil3.network.NetworkFetcher
 import coil3.network.ktor3.asNetworkClient
+import com.devper.app.config.AppCoroutinesDispatcher
 import com.devper.app.config.AppHost
 import com.devper.app.config.AppNetworkConfig
-import com.devper.app.config.AppCoroutinesDispatcher
 import com.devper.app.core.common.thread.Dispatcher
 import com.devper.app.core.data.di.dataModule
 import com.devper.app.core.domain.di.domainModule
@@ -20,27 +20,27 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 @OptIn(ExperimentalCoilApi::class)
-val appModule = module {
-    includes(httpModule)
+val appModule =
+    module {
+        includes(httpModule)
 
-    includes(dataModule)
-    includes(domainModule)
+        includes(dataModule)
+        includes(domainModule)
 
-    includes(loginModule)
-    includes(mainModule)
+        includes(loginModule)
+        includes(mainModule)
 
-    single {
-        NetworkFetcher.Factory(
-            networkClient = {
-                get<HttpModule>().client.asNetworkClient()
-            },
-        )
+        single {
+            NetworkFetcher.Factory(
+                networkClient = {
+                    get<HttpModule>().client.asNetworkClient()
+                },
+            )
+        }
+
+        singleOf(::AppCoroutinesDispatcher) { bind<Dispatcher>() }
+
+        singleOf(::AppNetworkConfig) { bind<NetworkConfig>() }
+
+        singleOf(::AppHost) { bind<HostProvider>() }
     }
-
-    singleOf(::AppCoroutinesDispatcher) { bind<Dispatcher>() }
-
-    singleOf(::AppNetworkConfig) { bind<NetworkConfig>() }
-
-    singleOf(::AppHost) { bind<HostProvider>() }
-
-}

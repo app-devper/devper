@@ -11,7 +11,7 @@ fun main() {
     return application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "DevperApp"
+            title = "DevperApp",
         ) {
             App()
         }

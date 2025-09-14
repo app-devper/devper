@@ -19,9 +19,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 @Preview
-fun App(
-    disableDiskCache: Boolean = false,
-) {
+fun App(disableDiskCache: Boolean = false) {
     AppTheme {
         val fetcherFactory: NetworkFetcher.Factory = KtorNetworkFetcherFactory()
         setSingletonImageLoaderFactory { context ->
@@ -36,29 +34,30 @@ fun App(
     }
 }
 
-
 fun PlatformContext.asyncImageLoader(fetcherFactory: NetworkFetcher.Factory) =
     ImageLoader
         .Builder(this)
         .components {
             add(fetcherFactory)
-        }
-        .crossfade(true)
+        }.crossfade(true)
         .networkCachePolicy(CachePolicy.ENABLED)
         .diskCachePolicy(CachePolicy.ENABLED)
         .memoryCachePolicy(CachePolicy.ENABLED)
         .memoryCache {
-            MemoryCache.Builder()
+            MemoryCache
+                .Builder()
                 .maxSizePercent(this, 0.25)
                 .strongReferencesEnabled(true)
                 .build()
-        }
-        .logger(DebugLogger())
+        }.logger(DebugLogger())
         .build()
 
-fun ImageLoader.enableDiskCache() = this.newBuilder()
-    .diskCache {
-        DiskCache.Builder()
-            .directory(FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "image_cache")
-            .build()
-    }.build()
+fun ImageLoader.enableDiskCache() =
+    this
+        .newBuilder()
+        .diskCache {
+            DiskCache
+                .Builder()
+                .directory(FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "image_cache")
+                .build()
+        }.build()
